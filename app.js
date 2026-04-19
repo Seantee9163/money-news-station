@@ -50,6 +50,20 @@ function cardTemplate(item) {
   `;
 }
 
+function compactCardTemplate(item) {
+  const updatedAt = formatUpdateTime(getArticleUpdatedAt(item));
+  return `
+    <article class="card compact-card">
+      <h3>${item.title}</h3>
+      <p class="muted">${item.summary}</p>
+      <p class="updated-time">更新时间：${updatedAt}</p>
+      <div class="card-actions">
+        <a class="text-link" href="article.html?id=${item.id}">查看详情 →</a>
+      </div>
+    </article>
+  `;
+}
+
 function getDateFilterValue(inputEl) {
   if (!inputEl || !inputEl.value) return '';
   return inputEl.value;
@@ -67,7 +81,8 @@ function initHome(news) {
   const dateInput = document.getElementById('home-date-filter');
   const clearDateBtn = document.getElementById('clear-home-date-filter');
 
-  let onlyToday = false;
+  const params = new URLSearchParams(window.location.search);
+  let onlyToday = params.get('today') === '1';
 
   function renderNewsList() {
     const selectedDate = getDateFilterValue(dateInput);
@@ -79,7 +94,7 @@ function initHome(news) {
 
     const latest = source.slice(0, 6);
     latestEl.innerHTML = latest.length
-      ? latest.map(cardTemplate).join('')
+      ? latest.map(compactCardTemplate).join('')
       : '<p class="muted">当前筛选条件下暂无情报，请尝试清空日期或切换查看范围。</p>';
 
     if (feedLabel) {
@@ -273,6 +288,9 @@ function initArticle(news) {
   const article = news.find((item) => item.id === id) || news[0];
 
   if (!article) return;
+  const currentIndex = news.findIndex((item) => item.id === article.id);
+  const prevArticle = currentIndex > 0 ? news[currentIndex - 1] : null;
+  const nextArticle = currentIndex < news.length - 1 ? news[currentIndex + 1] : null;
   const updatedAt = formatUpdateTime(getArticleUpdatedAt(article));
   const whyImportantText = article.why_it_matters || '该情报的重要性暂未补充，请结合正文与机会研判综合判断。';
   const riskText = article.risk || '暂无明确风险提示，建议结合后续数据持续跟踪。';
@@ -280,6 +298,9 @@ function initArticle(news) {
   const sourceUrl = article.source_url || '';
 
   detailEl.innerHTML = `
+    <div class="article-toolbar">
+      <a class="btn btn-secondary" href="index.html?today=1">← 返回今日情报</a>
+    </div>
     <p class="meta">${article.category} · ${article.date}</p>
     <h1>${article.title}</h1>
     <p class="updated-time">更新时间：${updatedAt}</p>
@@ -307,7 +328,21 @@ function initArticle(news) {
     <h2>情报正文</h2>
     <p>${article.content}</p>
 
-    <a class="text-link" href="category.html?category=${encodeURIComponent(article.category)}">查看同主题情报 →</a>
+    <div class="article-footer-links">
+      <a class="text-link" href="category.html?category=${encodeURIComponent(article.category)}">查看同主题情报 →</a>
+    </div>
+    <nav class="pager-nav" aria-label="文章翻页">
+      ${
+        prevArticle
+          ? `<a class="pager-link" href="article.html?id=${prevArticle.id}">← 上一篇<br /><span>${prevArticle.title}</span></a>`
+          : '<span class="pager-link disabled">← 上一篇<br /><span>已是第一篇</span></span>'
+      }
+      ${
+        nextArticle
+          ? `<a class="pager-link" href="article.html?id=${nextArticle.id}">下一篇 →<br /><span>${nextArticle.title}</span></a>`
+          : '<span class="pager-link disabled">下一篇 →<br /><span>已是最后一篇</span></span>'
+      }
+    </nav>
   `;
 
   const related = news
