@@ -308,6 +308,7 @@ function initArchive(news) {
 function initArticle(news) {
   const detailEl = document.getElementById('article-detail');
   const relatedEl = document.getElementById('related-list');
+  const articleAsideEl = document.getElementById('article-aside');
   if (!detailEl || !relatedEl) return;
 
   const params = new URLSearchParams(window.location.search);
@@ -368,7 +369,7 @@ function initArticle(news) {
     ${riskSection}
 
     <h2>情报正文</h2>
-    <p>${article.content}</p>
+    <p class="article-content">${article.content}</p>
 
     <div class="article-footer-links">
       <a class="text-link" href="category.html?category=${encodeURIComponent(article.category)}">查看同主题情报 →</a>
@@ -403,6 +404,10 @@ function initArticle(news) {
         )
         .join('')
     : '<p class="muted">暂无更多同主题情报。</p>';
+
+  if (articleAsideEl) {
+    articleAsideEl.classList.toggle('is-empty', related.length === 0);
+  }
 }
 
 async function loadNews() {
