@@ -318,7 +318,7 @@ function initArticle(news) {
 
   detailEl.innerHTML = `
     <div class="article-toolbar">
-      <a class="btn btn-secondary" href="index.html?today=1">← 返回今日情报</a>
+      <a class="btn btn-secondary" href="index.html">← 返回首页</a>
     </div>
     <p class="meta">${article.category} · ${article.date}</p>
     <h1>${article.title}</h1>
