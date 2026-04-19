@@ -1,8 +1,12 @@
 const NEWS_DATA_PATH = 'news-data.json';
 
-function byDateDescThenId(a, b) {
-  if (a.date === b.date) return a.id - b.id;
-  return b.date.localeCompare(a.date);
+function byPinnedThenDateDescThenId(a, b) {
+  const aPinned = Boolean(a.is_featured);
+  const bPinned = Boolean(b.is_featured);
+
+  if (aPinned !== bPinned) return bPinned - aPinned;
+  if (a.date !== b.date) return b.date.localeCompare(a.date);
+  return b.id - a.id;
 }
 
 function getCategories(items) {
@@ -44,8 +48,7 @@ function initHome(news) {
   const heroTitle = document.getElementById('hero-title');
   const heroSummary = document.getElementById('hero-summary');
 
-  const latestDate = news[0]?.date;
-  const coreOpportunity = news.find((item) => item.date === latestDate);
+  const coreOpportunity = news[0];
 
   if (coreOpportunity) {
     if (heroLink) heroLink.href = `article.html?id=${coreOpportunity.id}`;
@@ -136,7 +139,7 @@ async function loadNews() {
   const data = await response.json();
   if (!Array.isArray(data)) throw new Error('新闻数据格式错误：应为数组');
 
-  return data.sort(byDateDescThenId);
+  return data.sort(byPinnedThenDateDescThenId);
 }
 
 async function boot() {

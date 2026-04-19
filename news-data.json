@@ -10,7 +10,8 @@
     "source_name": "政策追踪",
     "source_url": "https://example.com/policy/ai-plus-2026-04-19",
     "risk": "若客户预算落地慢于预期，订单兑现节奏可能延后。",
-    "why_it_matters": "AI 应用从概念阶段进入可验证收入阶段，能更早反映在业绩与估值中。"
+    "why_it_matters": "AI 应用从概念阶段进入可验证收入阶段，能更早反映在业绩与估值中。",
+    "is_featured": true
   },
   {
     "id": 2,
@@ -23,7 +24,8 @@
     "source_name": "产业观察",
     "source_url": "https://example.com/industry/low-altitude-2026-04-18",
     "risk": "空域审批与地方运营规则不一致，可能影响规模化进度。",
-    "why_it_matters": "一旦网络化航线跑通，行业估值锚点将从设备销量转向高粘性服务收入。"
+    "why_it_matters": "一旦网络化航线跑通，行业估值锚点将从设备销量转向高粘性服务收入。",
+    "is_featured": false
   },
   {
     "id": 3,
@@ -36,7 +38,8 @@
     "source_name": "市场监测",
     "source_url": "https://example.com/market/gold-2026-04-18",
     "risk": "若金价短期回调且成本刚性上行，利润弹性可能被压缩。",
-    "why_it_matters": "同样的金价环境下，现金流质量更好的企业更容易获得估值溢价。"
+    "why_it_matters": "同样的金价环境下，现金流质量更好的企业更容易获得估值溢价。",
+    "is_featured": false
   },
   {
     "id": 4,
@@ -49,7 +52,8 @@
     "source_name": "行业数据",
     "source_url": "https://example.com/auto/ev-export-2026-04-17",
     "risk": "海外关税与本地化合规要求变化，可能扰动销量节奏。",
-    "why_it_matters": "出口结构升级意味着行业竞争从低价转向高质量，利润中枢有望上移。"
+    "why_it_matters": "出口结构升级意味着行业竞争从低价转向高质量，利润中枢有望上移。",
+    "is_featured": false
   },
   {
     "id": 5,
@@ -62,7 +66,8 @@
     "source_name": "财报前瞻",
     "source_url": "https://example.com/finance/bank-nim-2026-04-17",
     "risk": "若宏观信用需求偏弱，息差改善幅度可能不及预期。",
-    "why_it_matters": "银行作为权重板块，估值修复会影响整个市场风险偏好。"
+    "why_it_matters": "银行作为权重板块，估值修复会影响整个市场风险偏好。",
+    "is_featured": false
   },
   {
     "id": 6,
@@ -75,7 +80,8 @@
     "source_name": "渠道调研",
     "source_url": "https://example.com/consumer/retail-2026-04-16",
     "risk": "若居民消费意愿波动，短期销量修复可能反复。",
-    "why_it_matters": "消费链条修复常常领先反映在品牌零售端，对盈利预测有前瞻意义。"
+    "why_it_matters": "消费链条修复常常领先反映在品牌零售端，对盈利预测有前瞻意义。",
+    "is_featured": false
   },
   {
     "id": 7,
@@ -88,7 +94,8 @@
     "source_name": "高频跟踪",
     "source_url": "https://example.com/logistics/ports-2026-04-16",
     "risk": "若外需恢复不及预期，运价回升持续性可能不足。",
-    "why_it_matters": "航运景气与全球贸易周期高度相关，是观察外需的领先指标之一。"
+    "why_it_matters": "航运景气与全球贸易周期高度相关，是观察外需的领先指标之一。",
+    "is_featured": false
   },
   {
     "id": 8,
@@ -101,7 +108,8 @@
     "source_name": "公司跟踪",
     "source_url": "https://example.com/energy/inverter-2026-04-15",
     "risk": "海外政策补贴调整可能带来短期需求波动。",
-    "why_it_matters": "光储项目回款改善可直接修复现金流担忧，提升板块估值稳定性。"
+    "why_it_matters": "光储项目回款改善可直接修复现金流担忧，提升板块估值稳定性。",
+    "is_featured": false
   },
   {
     "id": 9,
@@ -114,7 +122,8 @@
     "source_name": "交易追踪",
     "source_url": "https://example.com/health/biotech-2026-04-15",
     "risk": "临床试验结果不及预期将放大板块波动。",
-    "why_it_matters": "BD 授权回款提升了创新药企业的生存与扩张能力，改善风险偏好。"
+    "why_it_matters": "BD 授权回款提升了创新药企业的生存与扩张能力，改善风险偏好。",
+    "is_featured": false
   },
   {
     "id": 10,
@@ -127,7 +136,8 @@
     "source_name": "资金流向",
     "source_url": "https://example.com/reits/infrastructure-2026-04-14",
     "risk": "若底层资产出租率下降，分红稳定性会受到影响。",
-    "why_it_matters": "稳健现金流资产在低利率周期更受机构欢迎，有助于平衡组合波动。"
+    "why_it_matters": "稳健现金流资产在低利率周期更受机构欢迎，有助于平衡组合波动。",
+    "is_featured": false
   },
   {
     "id": 11,
@@ -140,7 +150,8 @@
     "source_name": "平台动态",
     "source_url": "https://example.com/internet/cross-border-2026-04-14",
     "risk": "平台补贴与规则变动可能压缩中小卖家利润空间。",
-    "why_it_matters": "履约效率成为核心竞争力，行业份额会继续向供应链能力强者集中。"
+    "why_it_matters": "履约效率成为核心竞争力，行业份额会继续向供应链能力强者集中。",
+    "is_featured": false
   },
   {
     "id": 12,
@@ -153,6 +164,7 @@
     "source_name": "政策追踪",
     "source_url": "https://example.com/utilities/storage-2026-04-13",
     "risk": "电力市场化规则落地节奏不一致，可能影响收益兑现。",
-    "why_it_matters": "收益模型清晰后，储能板块将更容易获得长期资金定价。"
+    "why_it_matters": "收益模型清晰后，储能板块将更容易获得长期资金定价。",
+    "is_featured": false
   }
 ]
