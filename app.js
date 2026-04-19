@@ -24,12 +24,31 @@ function normalizeText(value) {
 function isPlaceholderSourceUrl(value) {
   const text = normalizeText(value);
   if (!text) return true;
+  if (text === '#' || /^javascript:/i.test(text)) return true;
+
+  const loweredText = text.toLowerCase();
+  const placeholderKeywords = ['示例', 'example', '占位', 'placeholder', 'demo', 'test'];
+  if (placeholderKeywords.some((keyword) => loweredText.includes(keyword))) return true;
 
   try {
     const url = new URL(text);
-    return url.hostname === 'example.com' || url.hostname.endsWith('.example.com');
+    const host = url.hostname.toLowerCase();
+    const pathname = `${url.pathname}${url.search}${url.hash}`.toLowerCase();
+    const placeholderHosts = [
+      'example.com',
+      'placeholder.com',
+      'your-domain.com',
+      'test.com',
+      'localhost',
+      '127.0.0.1',
+      '0.0.0.0',
+    ];
+    if (placeholderHosts.some((placeholderHost) => host === placeholderHost || host.endsWith(`.${placeholderHost}`))) {
+      return true;
+    }
+    return placeholderKeywords.some((keyword) => host.includes(keyword) || pathname.includes(keyword));
   } catch (error) {
-    return text === 'example.com' || text.endsWith('.example.com');
+    return true;
   }
 }
 
@@ -309,6 +328,7 @@ function initArticle(news) {
   const detailEl = document.getElementById('article-detail');
   const relatedEl = document.getElementById('related-list');
   const articleAsideEl = document.getElementById('article-aside');
+  const articleLayoutEl = document.querySelector('.article-layout');
   if (!detailEl || !relatedEl) return;
 
   const params = new URLSearchParams(window.location.search);
@@ -406,7 +426,12 @@ function initArticle(news) {
     : '<p class="muted">暂无更多同主题情报。</p>';
 
   if (articleAsideEl) {
-    articleAsideEl.classList.toggle('is-empty', related.length === 0);
+    const isRelatedEmpty = related.length === 0;
+    articleAsideEl.hidden = isRelatedEmpty;
+    articleAsideEl.classList.toggle('is-empty', isRelatedEmpty);
+    if (articleLayoutEl) {
+      articleLayoutEl.classList.toggle('article-layout--single', isRelatedEmpty);
+    }
   }
 }
 

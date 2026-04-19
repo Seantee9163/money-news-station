@@ -415,8 +415,12 @@ h3 {
 .article-layout {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  gap: 14px;
+  gap: 18px;
   align-items: start;
+}
+
+.article-layout--single {
+  grid-template-columns: minmax(0, 1fr);
 }
 
 .stack {
@@ -482,6 +486,30 @@ h3 {
 }
 
 @media (max-width: 1100px) {
+  .container {
+    width: min(980px, calc(100% - 36px));
+  }
+
+  #article-detail {
+    padding: 28px;
+  }
+
+  #article-detail p {
+    font-size: 18px;
+    line-height: 1.95;
+  }
+
+  #article-detail .summary.lead {
+    font-size: 20px;
+    line-height: 1.9;
+  }
+
+  #article-detail .info-block p {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 960px) {
   .article-layout {
     grid-template-columns: minmax(0, 1fr);
     gap: 16px;
