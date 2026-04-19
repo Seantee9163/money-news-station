@@ -24,7 +24,7 @@ function normalizeText(value) {
 function isPlaceholderSourceUrl(value) {
   const text = normalizeText(value);
   if (!text) return true;
-  if (text === '#' || /^javascript:/i.test(text)) return true;
+  if (text === '#' || /^javascript:/i.test(text) || /^about:blank$/i.test(text)) return true;
 
   const loweredText = text.toLowerCase();
   const placeholderKeywords = ['示例', 'example', '占位', 'placeholder', 'demo', 'test'];
@@ -409,10 +409,17 @@ function initArticle(news) {
   `;
 
   const related = news
-    .filter((item) => item.category === article.category && item.id !== article.id)
+    .filter(
+      (item) =>
+        item.category === article.category &&
+        item.id !== article.id &&
+        Boolean(normalizeText(item.title)),
+    )
     .slice(0, 3);
 
-  relatedEl.innerHTML = related.length
+  const hasRelatedContent = related.length > 0;
+
+  relatedEl.innerHTML = hasRelatedContent
     ? related
         .map(
           (item) => `
@@ -423,15 +430,13 @@ function initArticle(news) {
     `,
         )
         .join('')
-    : '<p class="muted">暂无更多同主题情报。</p>';
+    : '';
 
   if (articleAsideEl) {
-    const isRelatedEmpty = related.length === 0;
-    articleAsideEl.hidden = isRelatedEmpty;
-    articleAsideEl.classList.toggle('is-empty', isRelatedEmpty);
-    if (articleLayoutEl) {
-      articleLayoutEl.classList.toggle('article-layout--single', isRelatedEmpty);
-    }
+    articleAsideEl.hidden = !hasRelatedContent;
+  }
+  if (articleLayoutEl) {
+    articleLayoutEl.classList.toggle('article-layout--single', !hasRelatedContent);
   }
 }
 
