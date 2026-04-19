@@ -21,6 +21,28 @@ function normalizeText(value) {
   return typeof value === 'string' ? value.trim() : '';
 }
 
+function isPlaceholderSourceUrl(value) {
+  const text = normalizeText(value);
+  if (!text) return true;
+
+  try {
+    const url = new URL(text);
+    return url.hostname === 'example.com' || url.hostname.endsWith('.example.com');
+  } catch (error) {
+    return text === 'example.com' || text.endsWith('.example.com');
+  }
+}
+
+function formatSourceName(value) {
+  const text = normalizeText(value);
+  if (!text) return '来源待补充';
+
+  const lowered = text.toLowerCase();
+  const placeholderKeywords = ['占位', 'placeholder', '示例', 'example', '来源名称', 'source name'];
+  const isPlaceholder = placeholderKeywords.some((keyword) => lowered.includes(keyword.toLowerCase()));
+  return isPlaceholder ? '来源待补充' : text;
+}
+
 function byPinnedThenDateDescThenId(a, b) {
   const aPinned = Boolean(a.is_featured);
   const bPinned = Boolean(b.is_featured);
@@ -41,9 +63,10 @@ function getUniqueDates(items) {
 function cardTemplate(item) {
   const updatedAt = formatUpdateTime(getArticleUpdatedAt(item));
   const pinnedTag = item.is_featured ? '<span class="pin-tag">置顶新闻</span>' : '';
+  const sourceName = formatSourceName(item.source_name);
   return `
     <article class="card">
-      <p class="meta">${item.category} · ${item.date} · ${item.source_name} ${pinnedTag}</p>
+      <p class="meta">${item.category} · ${item.date} · ${sourceName} ${pinnedTag}</p>
       <h3>${item.title}</h3>
       <p class="muted">${item.summary}</p>
       <p class="updated-time">更新时间：${updatedAt}</p>
@@ -296,17 +319,18 @@ function initArticle(news) {
   const prevArticle = currentIndex > 0 ? news[currentIndex - 1] : null;
   const nextArticle = currentIndex < news.length - 1 ? news[currentIndex + 1] : null;
   const updatedAt = formatUpdateTime(getArticleUpdatedAt(article));
-  const sourceName = normalizeText(article.source_name) || '未提供';
+  const sourceName = formatSourceName(article.source_name);
   const sourceUrl = normalizeText(article.source_url);
+  const hasValidSourceUrl = !isPlaceholderSourceUrl(sourceUrl);
   const riskText = normalizeText(article.risk);
   const whyImportantText = normalizeText(article.why_it_matters);
-  const sourceLinkButton = sourceUrl
+  const sourceLinkButton = hasValidSourceUrl
     ? `<a class="btn btn-secondary" href="${sourceUrl}" target="_blank" rel="noopener noreferrer">打开来源链接</a>`
     : '';
   const whyItMattersSection = whyImportantText
     ? `
     <section class="info-block info-important">
-      <h2>why_it_matters</h2>
+      <h2>为什么重要</h2>
       <p>${whyImportantText}</p>
     </section>
     `
@@ -314,7 +338,7 @@ function initArticle(news) {
   const riskSection = riskText
     ? `
     <section class="info-block info-risk">
-      <h2>risk</h2>
+      <h2>风险提示</h2>
       <p>${riskText}</p>
     </section>
     `
@@ -331,8 +355,8 @@ function initArticle(news) {
 
     <section class="info-block info-source">
       <h2>来源信息</h2>
-      <p><strong>source_name：</strong>${sourceName}</p>
-      <p><strong>source_url：</strong>${sourceUrl ? `<a href="${sourceUrl}" target="_blank" rel="noopener noreferrer">${sourceUrl}</a>` : '未提供'}</p>
+      <p><strong>来源：</strong>${sourceName}</p>
+      <p><strong>链接：</strong>${hasValidSourceUrl ? `<a href="${sourceUrl}" target="_blank" rel="noopener noreferrer">${sourceUrl}</a>` : '暂未提供'}</p>
       ${sourceLinkButton ? `<div class="info-actions">${sourceLinkButton}</div>` : ''}
     </section>
 
@@ -373,7 +397,7 @@ function initArticle(news) {
           (item) => `
       <a class="related-item" href="article.html?id=${item.id}">
         <strong>${item.title}</strong>
-        <span class="muted">${item.date} · ${item.source_name}</span>
+        <span class="muted">${item.date} · ${formatSourceName(item.source_name)}</span>
       </a>
     `,
         )
