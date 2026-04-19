@@ -237,6 +237,13 @@ h3 {
   display: block;
 }
 
+.compact-card .muted {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 .meta {
   margin: 0 0 8px;
   font-size: 12px;
@@ -289,6 +296,43 @@ h3 {
   background: #eef2ff;
   color: #1e3a8a;
   border: 1px solid #c7d2fe;
+}
+
+.article-toolbar {
+  margin-bottom: 12px;
+}
+
+.article-footer-links {
+  margin-top: 18px;
+}
+
+.pager-nav {
+  margin-top: 14px;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.pager-link {
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px;
+  background: #fafafa;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.pager-link span {
+  font-size: 13px;
+  color: #4b5563;
+}
+
+.pager-link.disabled {
+  color: #9ca3af;
+  background: #f9fafb;
+  border-style: dashed;
 }
 
 .info-block {
@@ -402,6 +446,10 @@ h3 {
   }
 
   .hero-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .pager-nav {
     grid-template-columns: 1fr;
   }
 }
