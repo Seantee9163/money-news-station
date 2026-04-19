@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>钱线简报 | 分类</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav-wrap">
+        <a class="brand" href="index.html">钱线简报</a>
+        <nav class="top-nav" aria-label="主导航">
+          <a href="index.html">首页</a>
+          <a href="category.html" aria-current="page">分类</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="section-card">
+        <p class="eyebrow">Categories</p>
+        <h1>资讯分类</h1>
+        <p class="muted">按主题筛选新闻与机会：AI、宏观、消费、能源等。</p>
+      </section>
+
+      <section class="chips" id="category-chips"></section>
+      <section class="grid cols-2" id="category-list"></section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">© 2026 钱线简报 · 分类页</div>
+    </footer>
+
+    <script src="news-data.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
