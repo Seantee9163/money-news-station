@@ -10,8 +10,10 @@
 
 ## 新闻数据文件（你每天只改这一个）
 - **文件路径：`news-data.json`**
+- **空白模板：`news-template.jsonc`（含字段填写注释）**
 
 > 首页、分类页、文章页全部从 `news-data.json` 读取，不需要数据库。
+> 每天新增新闻时：先复制 `news-template.jsonc` 的对象模板，再粘贴到 `news-data.json` 中并填写内容。
 
 ## 数据格式（适合手动维护）
 `news-data.json` 是一个 JSON 数组，每条新闻是一个对象。推荐字段顺序如下：
@@ -28,6 +30,11 @@
 - `source_url`（可留空，建议填）
 - `risk`（可留空）
 - `why_it_matters`（可留空）
+
+留空时的自动隐藏规则：
+- `source_url` 为空：详情页隐藏“打开来源链接”按钮
+- `risk` 为空：详情页隐藏风险提示区
+- `why_it_matters` 为空：详情页隐藏 why_it_matters 模块
 
 ## 超简单每日更新说明
 详细版见：`UPDATE_NEWS.md`

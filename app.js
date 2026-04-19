@@ -292,10 +292,29 @@ function initArticle(news) {
   const prevArticle = currentIndex > 0 ? news[currentIndex - 1] : null;
   const nextArticle = currentIndex < news.length - 1 ? news[currentIndex + 1] : null;
   const updatedAt = formatUpdateTime(getArticleUpdatedAt(article));
-  const whyImportantText = article.why_it_matters || '该情报的重要性暂未补充，请结合正文与机会研判综合判断。';
-  const riskText = article.risk || '暂无明确风险提示，建议结合后续数据持续跟踪。';
   const sourceName = article.source_name || '未提供';
-  const sourceUrl = article.source_url || '';
+  const sourceUrl = typeof article.source_url === 'string' ? article.source_url.trim() : '';
+  const riskText = typeof article.risk === 'string' ? article.risk.trim() : '';
+  const whyImportantText = typeof article.why_it_matters === 'string' ? article.why_it_matters.trim() : '';
+  const sourceLinkButton = sourceUrl
+    ? `<a class="btn btn-secondary" href="${sourceUrl}" target="_blank" rel="noopener noreferrer">打开来源链接</a>`
+    : '';
+  const whyItMattersSection = whyImportantText
+    ? `
+    <section class="info-block info-important">
+      <h2>why_it_matters</h2>
+      <p>${whyImportantText}</p>
+    </section>
+    `
+    : '';
+  const riskSection = riskText
+    ? `
+    <section class="info-block info-risk">
+      <h2>risk</h2>
+      <p>${riskText}</p>
+    </section>
+    `
+    : '';
 
   detailEl.innerHTML = `
     <div class="article-toolbar">
@@ -310,20 +329,15 @@ function initArticle(news) {
       <h2>来源信息</h2>
       <p><strong>source_name：</strong>${sourceName}</p>
       <p><strong>source_url：</strong>${sourceUrl ? `<a href="${sourceUrl}" target="_blank" rel="noopener noreferrer">${sourceUrl}</a>` : '未提供'}</p>
+      ${sourceLinkButton}
     </section>
 
-    <section class="info-block info-important">
-      <h2>why_it_matters</h2>
-      <p>${whyImportantText}</p>
-    </section>
+    ${whyItMattersSection}
 
     <h2>机会研判</h2>
     <p>${article.opportunity}</p>
 
-    <section class="info-block info-risk">
-      <h2>risk</h2>
-      <p>${riskText}</p>
-    </section>
+    ${riskSection}
 
     <h2>情报正文</h2>
     <p>${article.content}</p>
