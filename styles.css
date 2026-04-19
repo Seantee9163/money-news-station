@@ -155,6 +155,20 @@ h3 {
   color: #374151;
 }
 
+.updated-time {
+  margin: 8px 0;
+  color: #4b5563;
+  font-size: 13px;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
 .text-link {
   color: #1f2937;
   text-decoration: none;
@@ -169,6 +183,42 @@ h3 {
   border-radius: 10px;
   white-space: nowrap;
   font-weight: 600;
+}
+
+.btn-secondary {
+  background: #eef2ff;
+  color: #1e3a8a;
+  border: 1px solid #c7d2fe;
+}
+
+.source-btn {
+  display: inline-block;
+  margin: 6px 0 14px;
+}
+
+.info-block {
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin: 18px 0;
+  border: 1px solid var(--line);
+}
+
+.info-block h2 {
+  margin-bottom: 6px;
+}
+
+.info-block p {
+  margin: 0;
+}
+
+.info-important {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+}
+
+.info-risk {
+  background: #fff7ed;
+  border-color: #fdba74;
 }
 
 .chips {

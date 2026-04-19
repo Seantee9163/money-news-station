@@ -1,5 +1,22 @@
 const NEWS_DATA_PATH = 'news-data.json';
 
+function formatUpdateTime(value) {
+  if (!value) return '未知';
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+
+  const yyyy = date.getFullYear();
+  const mm = String(date.getMonth() + 1).padStart(2, '0');
+  const dd = String(date.getDate()).padStart(2, '0');
+  const hh = String(date.getHours()).padStart(2, '0');
+  const min = String(date.getMinutes()).padStart(2, '0');
+  return `${yyyy}-${mm}-${dd} ${hh}:${min}`;
+}
+
+function getArticleUpdatedAt(item) {
+  return item.updated_at || `${item.date}T08:00:00`;
+}
+
 function byPinnedThenDateDescThenId(a, b) {
   const aPinned = Boolean(a.is_featured);
   const bPinned = Boolean(b.is_featured);
@@ -14,13 +31,18 @@ function getCategories(items) {
 }
 
 function cardTemplate(item) {
+  const updatedAt = formatUpdateTime(getArticleUpdatedAt(item));
   return `
     <article class="card">
       <p class="meta">${item.category} · ${item.date} · ${item.source_name}</p>
       <h3>${item.title}</h3>
       <p class="muted">${item.summary}</p>
+      <p class="updated-time">更新时间：${updatedAt}</p>
       <p class="insight"><strong>机会：</strong>${item.opportunity}</p>
-      <a class="text-link" href="article.html?id=${item.id}">查看情报全文 →</a>
+      <div class="card-actions">
+        <a class="text-link" href="article.html?id=${item.id}">查看情报全文 →</a>
+        <a class="btn btn-secondary" href="${item.source_url}" target="_blank" rel="noopener noreferrer">来源链接</a>
+      </div>
     </article>
   `;
 }
@@ -92,25 +114,31 @@ function initArticle(news) {
   const article = news.find((item) => item.id === id) || news[0];
 
   if (!article) return;
+  const updatedAt = formatUpdateTime(getArticleUpdatedAt(article));
 
   detailEl.innerHTML = `
     <p class="meta">${article.category} · ${article.date} · ${article.source_name}</p>
     <h1>${article.title}</h1>
+    <p class="updated-time">更新时间：${updatedAt}</p>
+    <a class="btn btn-secondary source-btn" href="${article.source_url}" target="_blank" rel="noopener noreferrer">来源链接</a>
     <p class="summary lead">${article.summary}</p>
 
-    <h2>为什么重要</h2>
-    <p>${article.why_it_matters}</p>
+    <section class="info-block info-important">
+      <h2>为什么重要</h2>
+      <p>${article.why_it_matters}</p>
+    </section>
 
     <h2>机会研判</h2>
     <p>${article.opportunity}</p>
 
-    <h2>主要风险</h2>
-    <p>${article.risk}</p>
+    <section class="info-block info-risk">
+      <h2>主要风险</h2>
+      <p>${article.risk}</p>
+    </section>
 
     <h2>情报正文</h2>
     <p>${article.content}</p>
 
-    <p class="muted">来源：<a class="text-link" href="${article.source_url}" target="_blank" rel="noopener noreferrer">${article.source_name}</a></p>
     <a class="text-link" href="category.html?category=${encodeURIComponent(article.category)}">查看同主题情报 →</a>
   `;
 
