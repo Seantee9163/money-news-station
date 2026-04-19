@@ -5,6 +5,7 @@
 ## 页面
 - 首页 `index.html`
 - 分类页 `category.html`
+- 历史归档页 `archive.html`
 - 文章详情页 `article.html`
 
 ## 新闻数据文件（你每天只改这一个）

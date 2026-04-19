@@ -15,8 +15,9 @@
           <span class="brand-en">Money Opportunity Brief</span>
         </a>
         <nav class="top-nav" aria-label="主导航">
-          <a href="index.html">首页情报</a>
+          <a href="index.html" aria-current="page">首页情报</a>
           <a href="category.html">主题分类</a>
+          <a href="archive.html">历史归档</a>
         </nav>
       </div>
     </header>
@@ -62,8 +63,13 @@
         <h2>最新情报</h2>
         <div class="head-actions">
           <span class="inline-hint" id="news-feed-label">显示全部情报</span>
-          <a class="text-link" href="category.html">更多情报 →</a>
+          <a class="text-link" href="archive.html">查看历史归档 →</a>
         </div>
+      </section>
+      <section class="filter-row">
+        <label for="home-date-filter">按日期筛选：</label>
+        <input type="date" id="home-date-filter" />
+        <button class="chip" id="clear-home-date-filter" type="button">清空日期</button>
       </section>
       <section class="grid cols-3" id="latest-news"></section>
     </main>

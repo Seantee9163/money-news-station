@@ -30,9 +30,12 @@ function getCategories(items) {
   return [...new Set(items.map((item) => item.category))];
 }
 
+function getUniqueDates(items) {
+  return [...new Set(items.map((item) => item.date))].sort((a, b) => b.localeCompare(a));
+}
+
 function cardTemplate(item) {
   const updatedAt = formatUpdateTime(getArticleUpdatedAt(item));
-  const riskText = item.risk || '暂无明确风险提示，建议持续跟踪。';
   const pinnedTag = item.is_featured ? '<span class="pin-tag">置顶新闻</span>' : '';
   return `
     <article class="card">
@@ -40,14 +43,16 @@ function cardTemplate(item) {
       <h3>${item.title}</h3>
       <p class="muted">${item.summary}</p>
       <p class="updated-time">更新时间：${updatedAt}</p>
-      <p class="insight"><strong>机会：</strong>${item.opportunity}</p>
-      <p class="risk-tip"><strong>风险提示：</strong>${riskText}</p>
       <div class="card-actions">
         <a class="text-link" href="article.html?id=${item.id}">查看情报全文 →</a>
-        <a class="btn btn-secondary" href="${item.source_url}" target="_blank" rel="noopener noreferrer">来源链接</a>
       </div>
     </article>
   `;
+}
+
+function getDateFilterValue(inputEl) {
+  if (!inputEl || !inputEl.value) return '';
+  return inputEl.value;
 }
 
 function initHome(news) {
@@ -59,15 +64,29 @@ function initHome(news) {
   const todayNews = news.filter((item) => item.date === today);
   const toggleBtn = document.getElementById('today-filter-toggle');
   const feedLabel = document.getElementById('news-feed-label');
+  const dateInput = document.getElementById('home-date-filter');
+  const clearDateBtn = document.getElementById('clear-home-date-filter');
+
   let onlyToday = false;
 
   function renderNewsList() {
-    const source = onlyToday ? todayNews : news;
+    const selectedDate = getDateFilterValue(dateInput);
+    let source = onlyToday ? todayNews : news;
+
+    if (selectedDate) {
+      source = source.filter((item) => item.date === selectedDate);
+    }
+
     const latest = source.slice(0, 6);
     latestEl.innerHTML = latest.length
       ? latest.map(cardTemplate).join('')
-      : '<p class="muted">今日暂无新增情报，建议先查看全部情报。</p>';
-    if (feedLabel) feedLabel.textContent = onlyToday ? '仅显示今日更新' : '显示全部情报';
+      : '<p class="muted">当前筛选条件下暂无情报，请尝试清空日期或切换查看范围。</p>';
+
+    if (feedLabel) {
+      const scopeText = onlyToday ? '仅显示今日更新' : '显示全部情报';
+      feedLabel.textContent = selectedDate ? `${scopeText} · 日期：${selectedDate}` : scopeText;
+    }
+
     if (toggleBtn) toggleBtn.textContent = onlyToday ? '查看全部情报' : '只看今日更新';
   }
 
@@ -112,11 +131,26 @@ function initHome(news) {
       latestEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   }
+
+  if (dateInput) {
+    dateInput.addEventListener('change', renderNewsList);
+  }
+
+  if (clearDateBtn && dateInput) {
+    clearDateBtn.addEventListener('click', () => {
+      dateInput.value = '';
+      renderNewsList();
+    });
+  }
 }
 
 function initCategory(news) {
   const listEl = document.getElementById('category-list');
   const chipsEl = document.getElementById('category-chips');
+  const dateInput = document.getElementById('category-date-filter');
+  const clearDateBtn = document.getElementById('clear-category-date-filter');
+  const dateHint = document.getElementById('category-date-hint');
+
   if (!listEl || !chipsEl) return;
 
   const params = new URLSearchParams(window.location.search);
@@ -134,9 +168,99 @@ function initCategory(news) {
     })
     .join('');
 
-  const filtered =
-    currentCategory === '全部' ? news : news.filter((item) => item.category === currentCategory);
-  listEl.innerHTML = filtered.map(cardTemplate).join('');
+  function renderCategoryList() {
+    const selectedDate = getDateFilterValue(dateInput);
+    let filtered =
+      currentCategory === '全部' ? news : news.filter((item) => item.category === currentCategory);
+
+    if (selectedDate) {
+      filtered = filtered.filter((item) => item.date === selectedDate);
+    }
+
+    listEl.innerHTML = filtered.length
+      ? filtered.map(cardTemplate).join('')
+      : '<p class="muted">该分类在当前日期下暂无情报。</p>';
+
+    if (dateHint) {
+      dateHint.textContent = selectedDate ? `当前日期筛选：${selectedDate}` : '未设置日期筛选';
+    }
+  }
+
+  renderCategoryList();
+
+  if (dateInput) dateInput.addEventListener('change', renderCategoryList);
+  if (clearDateBtn && dateInput) {
+    clearDateBtn.addEventListener('click', () => {
+      dateInput.value = '';
+      renderCategoryList();
+    });
+  }
+}
+
+function initArchive(news) {
+  const archiveListEl = document.getElementById('archive-list');
+  const archiveDatesEl = document.getElementById('archive-dates');
+  const archiveDateInput = document.getElementById('archive-date-filter');
+  const archiveDateCountEl = document.getElementById('archive-date-count');
+
+  if (!archiveListEl || !archiveDatesEl || !archiveDateInput) return;
+
+  const uniqueDates = getUniqueDates(news);
+
+  archiveDatesEl.innerHTML = uniqueDates
+    .map((date) => `<button type="button" class="chip archive-date-chip" data-date="${date}">${date}</button>`)
+    .join('');
+
+  function renderArchive() {
+    const selectedDate = getDateFilterValue(archiveDateInput);
+    const datesToRender = selectedDate ? [selectedDate] : uniqueDates;
+
+    const html = datesToRender
+      .map((date) => {
+        const articles = news.filter((item) => item.date === date);
+        if (!articles.length) return '';
+
+        return `
+          <section class="archive-day section-card">
+            <div class="archive-day-head">
+              <h2>${date}</h2>
+              <span class="inline-hint">共 ${articles.length} 条</span>
+            </div>
+            <div class="grid cols-2">
+              ${articles.map(cardTemplate).join('')}
+            </div>
+          </section>
+        `;
+      })
+      .join('');
+
+    archiveListEl.innerHTML = html || '<p class="muted">该日期暂无新闻归档。</p>';
+
+    if (archiveDateCountEl) {
+      const count = selectedDate ? news.filter((item) => item.date === selectedDate).length : news.length;
+      archiveDateCountEl.textContent = selectedDate
+        ? `已筛选 ${selectedDate}（${count} 条）`
+        : `当前共归档 ${news.length} 条`;
+    }
+
+    archiveDatesEl.querySelectorAll('.archive-date-chip').forEach((chip) => {
+      const active = chip.dataset.date === selectedDate;
+      chip.classList.toggle('active', active);
+    });
+  }
+
+  archiveDatesEl.addEventListener('click', (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLElement)) return;
+    if (!target.classList.contains('archive-date-chip')) return;
+
+    const nextDate = target.dataset.date || '';
+    archiveDateInput.value = nextDate;
+    renderArchive();
+  });
+
+  archiveDateInput.addEventListener('change', renderArchive);
+  renderArchive();
 }
 
 function initArticle(news) {
@@ -152,16 +276,23 @@ function initArticle(news) {
   const updatedAt = formatUpdateTime(getArticleUpdatedAt(article));
   const whyImportantText = article.why_it_matters || '该情报的重要性暂未补充，请结合正文与机会研判综合判断。';
   const riskText = article.risk || '暂无明确风险提示，建议结合后续数据持续跟踪。';
+  const sourceName = article.source_name || '未提供';
+  const sourceUrl = article.source_url || '';
 
   detailEl.innerHTML = `
-    <p class="meta">${article.category} · ${article.date} · ${article.source_name}</p>
+    <p class="meta">${article.category} · ${article.date}</p>
     <h1>${article.title}</h1>
     <p class="updated-time">更新时间：${updatedAt}</p>
-    <a class="btn btn-secondary source-btn" href="${article.source_url}" target="_blank" rel="noopener noreferrer">来源链接</a>
     <p class="summary lead">${article.summary}</p>
 
+    <section class="info-block info-source">
+      <h2>来源信息</h2>
+      <p><strong>source_name：</strong>${sourceName}</p>
+      <p><strong>source_url：</strong>${sourceUrl ? `<a href="${sourceUrl}" target="_blank" rel="noopener noreferrer">${sourceUrl}</a>` : '未提供'}</p>
+    </section>
+
     <section class="info-block info-important">
-      <h2>为什么重要</h2>
+      <h2>why_it_matters</h2>
       <p>${whyImportantText}</p>
     </section>
 
@@ -169,7 +300,7 @@ function initArticle(news) {
     <p>${article.opportunity}</p>
 
     <section class="info-block info-risk">
-      <h2>主要风险</h2>
+      <h2>risk</h2>
       <p>${riskText}</p>
     </section>
 
@@ -212,11 +343,12 @@ async function boot() {
     const news = await loadNews();
     initHome(news);
     initCategory(news);
+    initArchive(news);
     initArticle(news);
   } catch (error) {
     console.error(error);
 
-    const targets = ['latest-news', 'category-nav', 'category-list', 'article-detail'];
+    const targets = ['latest-news', 'category-nav', 'category-list', 'archive-list', 'article-detail'];
     targets.forEach((id) => {
       const el = document.getElementById(id);
       if (el) el.innerHTML = '<p class="muted">数据加载失败，请检查 news-data.json。</p>';
