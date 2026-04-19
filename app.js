@@ -62,6 +62,15 @@ function formatSourceName(value) {
   return isPlaceholder ? '来源待补充' : text;
 }
 
+function hasMeaningfulRelatedContent(item) {
+  if (!item || typeof item !== 'object') return false;
+  const hasTitle = Boolean(normalizeText(item.title));
+  const hasSummary = Boolean(normalizeText(item.summary));
+  const hasOpportunity = Boolean(normalizeText(item.opportunity));
+  const hasContent = Boolean(normalizeText(item.content));
+  return hasTitle && (hasSummary || hasOpportunity || hasContent);
+}
+
 function byPinnedThenDateDescThenId(a, b) {
   const aPinned = Boolean(a.is_featured);
   const bPinned = Boolean(b.is_featured);
@@ -413,7 +422,7 @@ function initArticle(news) {
       (item) =>
         item.category === article.category &&
         item.id !== article.id &&
-        Boolean(normalizeText(item.title)),
+        hasMeaningfulRelatedContent(item),
     )
     .slice(0, 3);
 
