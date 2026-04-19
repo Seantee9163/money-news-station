@@ -32,6 +32,7 @@ function getCategories(items) {
 
 function cardTemplate(item) {
   const updatedAt = formatUpdateTime(getArticleUpdatedAt(item));
+  const riskText = item.risk || '暂无明确风险提示，建议持续跟踪。';
   return `
     <article class="card">
       <p class="meta">${item.category} · ${item.date} · ${item.source_name}</p>
@@ -39,6 +40,7 @@ function cardTemplate(item) {
       <p class="muted">${item.summary}</p>
       <p class="updated-time">更新时间：${updatedAt}</p>
       <p class="insight"><strong>机会：</strong>${item.opportunity}</p>
+      <p class="risk-tip"><strong>风险提示：</strong>${riskText}</p>
       <div class="card-actions">
         <a class="text-link" href="article.html?id=${item.id}">查看情报全文 →</a>
         <a class="btn btn-secondary" href="${item.source_url}" target="_blank" rel="noopener noreferrer">来源链接</a>
@@ -115,6 +117,8 @@ function initArticle(news) {
 
   if (!article) return;
   const updatedAt = formatUpdateTime(getArticleUpdatedAt(article));
+  const whyImportantText = article.why_it_matters || '该情报的重要性暂未补充，请结合正文与机会研判综合判断。';
+  const riskText = article.risk || '暂无明确风险提示，建议结合后续数据持续跟踪。';
 
   detailEl.innerHTML = `
     <p class="meta">${article.category} · ${article.date} · ${article.source_name}</p>
@@ -125,7 +129,7 @@ function initArticle(news) {
 
     <section class="info-block info-important">
       <h2>为什么重要</h2>
-      <p>${article.why_it_matters}</p>
+      <p>${whyImportantText}</p>
     </section>
 
     <h2>机会研判</h2>
@@ -133,7 +137,7 @@ function initArticle(news) {
 
     <section class="info-block info-risk">
       <h2>主要风险</h2>
-      <p>${article.risk}</p>
+      <p>${riskText}</p>
     </section>
 
     <h2>情报正文</h2>
