@@ -43,8 +43,19 @@ body {
 .brand {
   color: var(--accent);
   text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.brand-cn {
   font-weight: 700;
   letter-spacing: 0.04em;
+}
+
+.brand-en {
+  font-size: 12px;
+  color: #6b7280;
 }
 
 .top-nav {
@@ -55,6 +66,7 @@ body {
 .top-nav a {
   text-decoration: none;
   color: #374151;
+  font-weight: 600;
 }
 
 main {
@@ -138,6 +150,11 @@ h3 {
   color: #6b7280;
 }
 
+.insight {
+  margin: 10px 0 12px;
+  color: #374151;
+}
+
 .text-link {
   color: #1f2937;
   text-decoration: none;
@@ -151,6 +168,7 @@ h3 {
   padding: 10px 14px;
   border-radius: 10px;
   white-space: nowrap;
+  font-weight: 600;
 }
 
 .chips {

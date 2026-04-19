@@ -7,10 +7,11 @@ function getCategories(items) {
 function cardTemplate(item) {
   return `
     <article class="card">
-      <p class="meta">${item.category} · ${item.date}</p>
+      <p class="meta">${item.category} · ${item.date} · ${item.source}</p>
       <h3>${item.title}</h3>
       <p class="muted">${item.summary}</p>
-      <a class="text-link" href="article.html?id=${item.id}">阅读全文 →</a>
+      <p class="insight"><strong>交易线索：</strong>${item.signal}</p>
+      <a class="text-link" href="article.html?id=${item.id}">查看情报全文 →</a>
     </article>
   `;
 }
@@ -76,14 +77,16 @@ function initArticle() {
   if (!article) return;
 
   detailEl.innerHTML = `
-    <p class="meta">${article.category} · ${article.date}</p>
+    <p class="meta">${article.category} · ${article.date} · ${article.source}</p>
     <h1>${article.title}</h1>
     <p class="summary lead">${article.summary}</p>
-    <h2>机会看点</h2>
+    <h2>核心信号</h2>
+    <p>${article.signal}</p>
+    <h2>机会研判</h2>
     <p>${article.opportunity}</p>
-    <h2>正文</h2>
+    <h2>情报正文</h2>
     <p>${article.content}</p>
-    <a class="text-link" href="category.html?category=${encodeURIComponent(article.category)}">查看同类资讯 →</a>
+    <a class="text-link" href="category.html?category=${encodeURIComponent(article.category)}">查看同主题情报 →</a>
   `;
 
   const related = news.filter((item) => item.category === article.category && item.id !== article.id).slice(0, 3);
@@ -93,12 +96,12 @@ function initArticle() {
           (item) => `
       <a class="related-item" href="article.html?id=${item.id}">
         <strong>${item.title}</strong>
-        <span class="muted">${item.date}</span>
+        <span class="muted">${item.date} · ${item.source}</span>
       </a>
     `,
         )
         .join('')
-    : '<p class="muted">暂无更多同类文章。</p>';
+    : '<p class="muted">暂无更多同主题情报。</p>';
 }
 
 initHome();
