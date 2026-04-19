@@ -23,13 +23,33 @@
 
     <main class="container">
       <section class="hero section-card">
-        <div>
-          <p class="eyebrow">Money Opportunity Brief</p>
+        <div class="hero-main">
+          <div class="hero-topline">
+            <p class="eyebrow">Money Opportunity Brief</p>
+            <p class="update-badge">今日更新日期：<span id="today-update-date">加载中...</span></p>
+          </div>
           <h1>钱线简报 · 今日核心机会</h1>
           <p class="muted" id="hero-title">加载中...</p>
           <p class="muted" id="hero-summary">加载中...</p>
+          <div class="hero-stats" id="hero-stats">
+            <div class="stat-item">
+              <span class="stat-label">今日更新</span>
+              <strong id="today-count">0</strong>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">置顶新闻</span>
+              <strong id="pinned-count">0</strong>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">覆盖主题</span>
+              <strong id="category-count">0</strong>
+            </div>
+          </div>
         </div>
-        <a class="btn" id="hero-link" href="article.html?id=1">查看核心情报</a>
+        <div class="hero-actions">
+          <a class="btn" id="hero-link" href="article.html?id=1">查看核心情报</a>
+          <button class="btn btn-secondary filter-btn" id="today-filter-toggle" type="button">只看今日更新</button>
+        </div>
       </section>
 
       <section class="section-head">
@@ -40,7 +60,10 @@
 
       <section class="section-head">
         <h2>最新情报</h2>
-        <a class="text-link" href="category.html">更多情报 →</a>
+        <div class="head-actions">
+          <span class="inline-hint" id="news-feed-label">显示全部情报</span>
+          <a class="text-link" href="category.html">更多情报 →</a>
+        </div>
       </section>
       <section class="grid cols-3" id="latest-news"></section>
     </main>

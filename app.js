@@ -33,9 +33,10 @@ function getCategories(items) {
 function cardTemplate(item) {
   const updatedAt = formatUpdateTime(getArticleUpdatedAt(item));
   const riskText = item.risk || '暂无明确风险提示，建议持续跟踪。';
+  const pinnedTag = item.is_featured ? '<span class="pin-tag">置顶新闻</span>' : '';
   return `
     <article class="card">
-      <p class="meta">${item.category} · ${item.date} · ${item.source_name}</p>
+      <p class="meta">${item.category} · ${item.date} · ${item.source_name} ${pinnedTag}</p>
       <h3>${item.title}</h3>
       <p class="muted">${item.summary}</p>
       <p class="updated-time">更新时间：${updatedAt}</p>
@@ -54,8 +55,23 @@ function initHome(news) {
   const categoryEl = document.getElementById('category-nav');
   if (!latestEl || !categoryEl) return;
 
-  const latest = news.slice(0, 6);
-  latestEl.innerHTML = latest.map(cardTemplate).join('');
+  const today = new Date().toISOString().slice(0, 10);
+  const todayNews = news.filter((item) => item.date === today);
+  const toggleBtn = document.getElementById('today-filter-toggle');
+  const feedLabel = document.getElementById('news-feed-label');
+  let onlyToday = false;
+
+  function renderNewsList() {
+    const source = onlyToday ? todayNews : news;
+    const latest = source.slice(0, 6);
+    latestEl.innerHTML = latest.length
+      ? latest.map(cardTemplate).join('')
+      : '<p class="muted">今日暂无新增情报，建议先查看全部情报。</p>';
+    if (feedLabel) feedLabel.textContent = onlyToday ? '仅显示今日更新' : '显示全部情报';
+    if (toggleBtn) toggleBtn.textContent = onlyToday ? '查看全部情报' : '只看今日更新';
+  }
+
+  renderNewsList();
 
   const categories = getCategories(news);
   categoryEl.innerHTML = categories
@@ -71,6 +87,10 @@ function initHome(news) {
   const heroLink = document.getElementById('hero-link');
   const heroTitle = document.getElementById('hero-title');
   const heroSummary = document.getElementById('hero-summary');
+  const todayUpdateDateEl = document.getElementById('today-update-date');
+  const todayCountEl = document.getElementById('today-count');
+  const pinnedCountEl = document.getElementById('pinned-count');
+  const categoryCountEl = document.getElementById('category-count');
 
   const coreOpportunity = news[0];
 
@@ -78,6 +98,19 @@ function initHome(news) {
     if (heroLink) heroLink.href = `article.html?id=${coreOpportunity.id}`;
     if (heroTitle) heroTitle.textContent = coreOpportunity.title;
     if (heroSummary) heroSummary.textContent = coreOpportunity.opportunity;
+  }
+
+  if (todayUpdateDateEl) todayUpdateDateEl.textContent = today;
+  if (todayCountEl) todayCountEl.textContent = String(todayNews.length);
+  if (pinnedCountEl) pinnedCountEl.textContent = String(news.filter((item) => item.is_featured).length);
+  if (categoryCountEl) categoryCountEl.textContent = String(categories.length);
+
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      onlyToday = !onlyToday;
+      renderNewsList();
+      latestEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
   }
 }
 
