@@ -17,6 +17,10 @@ function getArticleUpdatedAt(item) {
   return item.updated_at || `${item.date}T08:00:00`;
 }
 
+function normalizeText(value) {
+  return typeof value === 'string' ? value.trim() : '';
+}
+
 function byPinnedThenDateDescThenId(a, b) {
   const aPinned = Boolean(a.is_featured);
   const bPinned = Boolean(b.is_featured);
@@ -292,10 +296,10 @@ function initArticle(news) {
   const prevArticle = currentIndex > 0 ? news[currentIndex - 1] : null;
   const nextArticle = currentIndex < news.length - 1 ? news[currentIndex + 1] : null;
   const updatedAt = formatUpdateTime(getArticleUpdatedAt(article));
-  const sourceName = article.source_name || '未提供';
-  const sourceUrl = typeof article.source_url === 'string' ? article.source_url.trim() : '';
-  const riskText = typeof article.risk === 'string' ? article.risk.trim() : '';
-  const whyImportantText = typeof article.why_it_matters === 'string' ? article.why_it_matters.trim() : '';
+  const sourceName = normalizeText(article.source_name) || '未提供';
+  const sourceUrl = normalizeText(article.source_url);
+  const riskText = normalizeText(article.risk);
+  const whyImportantText = normalizeText(article.why_it_matters);
   const sourceLinkButton = sourceUrl
     ? `<a class="btn btn-secondary" href="${sourceUrl}" target="_blank" rel="noopener noreferrer">打开来源链接</a>`
     : '';
@@ -329,7 +333,7 @@ function initArticle(news) {
       <h2>来源信息</h2>
       <p><strong>source_name：</strong>${sourceName}</p>
       <p><strong>source_url：</strong>${sourceUrl ? `<a href="${sourceUrl}" target="_blank" rel="noopener noreferrer">${sourceUrl}</a>` : '未提供'}</p>
-      ${sourceLinkButton}
+      ${sourceLinkButton ? `<div class="info-actions">${sourceLinkButton}</div>` : ''}
     </section>
 
     ${whyItMattersSection}

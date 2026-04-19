@@ -354,6 +354,10 @@ h3 {
   margin-bottom: 0;
 }
 
+.info-actions {
+  margin-top: 10px;
+}
+
 .info-source {
   background: #f9fafb;
   border-color: #d1d5db;
