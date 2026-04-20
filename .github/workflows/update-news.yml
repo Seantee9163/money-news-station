@@ -19,16 +19,42 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Generate or update news-data.json
-        env:
-          NEWS_SOURCE_URL: ${{ secrets.NEWS_SOURCE_URL }}
-          NEWS_SOURCE_AUTH_TOKEN: ${{ secrets.NEWS_SOURCE_AUTH_TOKEN }}
-        run: python scripts/build_news_data.py
-
-      - name: Commit changes
+      - name: Rewrite news-data.json with timestamp test news
         run: |
-          if git diff --quiet news-data.json; then
-            echo "No changes detected in news-data.json"
+          python - <<'PY'
+          import json
+          from datetime import datetime, timezone
+
+          now = datetime.now(timezone.utc)
+          timestamp = now.isoformat(timespec="seconds")
+          payload = [
+              {
+                  "id": int(now.timestamp()),
+                  "title": f"自动更新测试新闻（{timestamp}）",
+                  "category": "自动化测试",
+                  "date": now.date().isoformat(),
+                  "is_featured": True,
+                  "summary": "这是一条由 GitHub Actions 自动写入的测试新闻，用于验证自动更新链路。",
+                  "opportunity": "每次运行都会刷新时间戳，便于确认页面是否同步到最新内容。",
+                  "content": f"该内容由 update-news.yml 在 {timestamp}（UTC）生成。",
+                  "source_name": "GitHub Actions",
+                  "source_url": "",
+                  "risk": "测试数据不可用于真实业务展示。",
+                  "why_it_matters": "用于验证 news-data.json 变更、自动提交以及 Pages 自动发布是否完整可用。"
+              }
+          ]
+
+          with open("news-data.json", "w", encoding="utf-8") as f:
+              json.dump(payload, f, ensure_ascii=False, indent=2)
+              f.write("\n")
+
+          print(f"news-data.json rewritten at {timestamp} UTC")
+          PY
+
+      - name: Commit and push when news-data.json changed
+        run: |
+          if git diff --quiet -- news-data.json; then
+            echo "No changes detected in news-data.json, skipping commit and push."
             exit 0
           fi
 

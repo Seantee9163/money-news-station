@@ -41,35 +41,36 @@
 
 ## 自动更新配置说明
 
-本仓库已提供两条 GitHub Actions 工作流：
+当前仓库只保留以下两条工作流，避免重复部署：
 
-- `.github/workflows/update-news.yml`：手动触发，生成或更新 `news-data.json`
-- `.github/workflows/deploy-pages.yml`：将当前静态站点发布到 GitHub Pages
+- `.github/workflows/update-news.yml`：手动触发，强制重写 `news-data.json` 为一条带 UTC 时间戳的测试新闻
+- `.github/workflows/deploy-pages.yml`：监听 `main` 分支 `push` 并自动发布到 GitHub Pages
 
-### 1) 配置 `update-news.yml`
-
-当前只启用了 `workflow_dispatch`（手动触发），用于先跑通自动更新流程。
+### 1) `update-news.yml` 当前行为
 
 执行逻辑：
-1. 读取 `secrets.NEWS_SOURCE_URL` 指向的 JSON 新闻源（数组）
-2. 校验并写入 `news-data.json`
-3. 若文件发生变化，自动提交并推送到当前分支
+1. 使用 Python 每次重写 `news-data.json`
+2. 写入一条测试新闻，标题和正文包含当前 UTC 时间戳
+3. 检查 `news-data.json` 是否有差异
+4. 仅在有差异时 `commit + push`
+5. 若无差异，日志输出：`No changes detected in news-data.json, skipping commit and push.`
 
-> 后续如需定时更新，可在 `on:` 下追加 `schedule`（例如 cron）。
+> 这样可以先验证自动更新链路，后续再切回真实新闻源。
 
-### 2) 配置 `deploy-pages.yml`
+### 2) `deploy-pages.yml` 当前行为
 
-- 在 `main` 分支有新提交时会自动部署
-- 也支持手动触发部署
-- 采用 GitHub 官方 Pages Actions（`configure-pages` / `upload-pages-artifact` / `deploy-pages`）
+- 当 `main` 有新提交时自动触发
+- 使用官方 Pages Actions（`configure-pages` / `upload-pages-artifact` / `deploy-pages`）
+- 因此 `update-news.yml` 推送到 `main` 后会继续触发 Pages 自动发布
 
-### 3) 需要添加的 Secrets 名称
-
-请在仓库 `Settings -> Secrets and variables -> Actions` 中添加：
-
-- `NEWS_SOURCE_URL`（必填）：新闻数据源接口地址，返回 JSON 数组
-- `NEWS_SOURCE_AUTH_TOKEN`（可选）：若数据源需要鉴权，填入 Bearer Token
-
-### 4) GitHub Pages 仓库设置
+### 3) GitHub Pages 仓库设置
 
 在仓库 `Settings -> Pages` 中将 Build and deployment Source 设置为 **GitHub Actions**。
+
+## 自动更新测试方法
+
+1. 打开 GitHub 仓库 `Actions` 页面，运行 **Update News Data**。
+2. 观察日志中 `news-data.json rewritten at ... UTC` 输出。
+3. 确认出现 `chore: auto-update news-data.json` 自动提交（若有变更）。
+4. 提交进入 `main` 后，检查 **Deploy static site to Pages** 是否自动触发并成功。
+5. 打开 Pages 站点，确认首页可见“自动更新测试新闻（时间戳）”。
