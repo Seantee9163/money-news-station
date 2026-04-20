@@ -2,6 +2,8 @@ name: Update News Data
 
 on:
   workflow_dispatch:
+  schedule:
+  - cron: '7 23 * * *'
 
 permissions:
   contents: write
