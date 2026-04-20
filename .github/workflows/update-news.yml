@@ -1,0 +1,39 @@
+name: Update News Data
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-news:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Generate or update news-data.json
+        env:
+          NEWS_SOURCE_URL: ${{ secrets.NEWS_SOURCE_URL }}
+          NEWS_SOURCE_AUTH_TOKEN: ${{ secrets.NEWS_SOURCE_AUTH_TOKEN }}
+        run: python scripts/build_news_data.py
+
+      - name: Commit changes
+        run: |
+          if git diff --quiet news-data.json; then
+            echo "No changes detected in news-data.json"
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add news-data.json
+          git commit -m "chore: auto-update news-data.json"
+          git push

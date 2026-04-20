@@ -38,3 +38,38 @@
 
 ## 超简单每日更新说明
 详细版见：`UPDATE_NEWS.md`
+
+## 自动更新配置说明
+
+本仓库已提供两条 GitHub Actions 工作流：
+
+- `.github/workflows/update-news.yml`：手动触发，生成或更新 `news-data.json`
+- `.github/workflows/deploy-pages.yml`：将当前静态站点发布到 GitHub Pages
+
+### 1) 配置 `update-news.yml`
+
+当前只启用了 `workflow_dispatch`（手动触发），用于先跑通自动更新流程。
+
+执行逻辑：
+1. 读取 `secrets.NEWS_SOURCE_URL` 指向的 JSON 新闻源（数组）
+2. 校验并写入 `news-data.json`
+3. 若文件发生变化，自动提交并推送到当前分支
+
+> 后续如需定时更新，可在 `on:` 下追加 `schedule`（例如 cron）。
+
+### 2) 配置 `deploy-pages.yml`
+
+- 在 `main` 分支有新提交时会自动部署
+- 也支持手动触发部署
+- 采用 GitHub 官方 Pages Actions（`configure-pages` / `upload-pages-artifact` / `deploy-pages`）
+
+### 3) 需要添加的 Secrets 名称
+
+请在仓库 `Settings -> Secrets and variables -> Actions` 中添加：
+
+- `NEWS_SOURCE_URL`（必填）：新闻数据源接口地址，返回 JSON 数组
+- `NEWS_SOURCE_AUTH_TOKEN`（可选）：若数据源需要鉴权，填入 Bearer Token
+
+### 4) GitHub Pages 仓库设置
+
+在仓库 `Settings -> Pages` 中将 Build and deployment Source 设置为 **GitHub Actions**。
