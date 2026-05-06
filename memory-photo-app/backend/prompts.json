@@ -1,1 +1,6 @@
-
+{
+  "version": "mvp-2026-05-06",
+  "restore_prompt": "You are a photo restoration model. Remove scratches, dust, fading, and color cast while preserving original identity and composition. Keep faces natural and avoid over-smoothing.",
+  "style_generation_prompt": "Generate six style variants from the restored photo: vintage, film, watercolor, anime, cinematic, and clean-modern. Preserve subject identity, framing, and key scene objects.",
+  "quality_check_prompt": "Check generated outputs for blur, artifacts, face distortion, and inconsistent lighting. Reject outputs that fail identity preservation or produce severe artifacts."
+}
