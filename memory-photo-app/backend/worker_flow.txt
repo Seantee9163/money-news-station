@@ -1,0 +1,11 @@
+Memory Photo App Worker Flow (MVP)
+
+1) Nightly scheduler (18:00 local) closes collecting batches.
+2) For each group in closed batches:
+   a. Run restore job on all uploaded photos.
+   b. Run six-style generation job for each restored photo.
+   c. Run quality check and retry failed style outputs up to 2 times.
+   d. Package style outputs into per-group ZIP archives.
+3) Mark group status as completed when archives are ready.
+4) Mark batch status as ready_for_download when all groups complete.
+5) Publish signed download URLs with 24-hour expiration.
