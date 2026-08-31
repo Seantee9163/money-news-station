@@ -209,9 +209,13 @@ jobs:
         with:
           path: .
 
+  deploy-pages:
+    runs-on: ubuntu-latest
+    needs: update-news
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - name: Deploy current site to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-        environment:
-          name: github-pages
-          url: ${{ steps.deployment.outputs.page_url }}
