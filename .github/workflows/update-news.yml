@@ -3,10 +3,16 @@ name: Update News Data
 on:
   workflow_dispatch:
   schedule:
-  - cron: '7 23 * * *'
+    - cron: '7 23 * * *'
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: money-news-daily
+  cancel-in-progress: false
 
 jobs:
   update-news:
@@ -34,84 +40,74 @@ jobs:
           import xml.etree.ElementTree as ET
 
           TOPIC_KEYWORDS = {
-              "赚钱机会": ["opportunity", "startup", "small business", "creator economy", "side hustle"],
-              "商业趋势": ["business trend", "consumer", "retail", "supply chain", "market demand"],
-              "投资动向": ["investment", "fund", "capital", "ipo", "merger", "acquisition", "buyback"],
-              "政策变化": ["policy", "regulation", "tariff", "tax", "central bank", "interest rate"],
-              "AI工具": ["ai", "artificial intelligence", "model", "chip", "automation", "software"],
-              "电商": ["e-commerce", "online shopping", "marketplace", "cross-border"],
-              "制造业": ["manufacturing", "factory", "industrial", "production", "semiconductor"],
-              "贵金属": ["gold", "silver", "platinum", "precious metal"],
-              "新兴赛道": ["clean energy", "battery", "robotics", "biotech", "quantum", "space tech"]
+              "赚钱机会": [r"\bopportunit(?:y|ies)\b", r"\bstartup\b", r"\bsmall business\b", r"\bcreator economy\b", r"\bside hustle\b"],
+              "商业趋势": [r"\bbusiness\b", r"\bconsumer\b", r"\bretail\b", r"\bsupply chain\b", r"\bmarket demand\b", r"\bpricing\b"],
+              "投资动向": [r"\binvest(?:ment|or|ing)\b", r"\bfund\b", r"\bcapital\b", r"\bipo\b", r"\bmerger\b", r"\bacquisition\b", r"\bbuyback\b"],
+              "政策变化": [r"\bpolicy\b", r"\bregulation\b", r"\btariff\b", r"\btax\b", r"\bcentral bank\b", r"\binterest rate\b", r"\bsanction\b"],
+              "AI工具": [r"\bai\b", r"\bartificial intelligence\b", r"\bgenerative ai\b", r"\bmachine learning\b", r"\bllm\b", r"\bchatbot\b", r"\bautomation\b", r"\bai agent\b"],
+              "电商": [r"\be-?commerce\b", r"\bonline shopping\b", r"\bmarketplace\b", r"\bcross-border commerce\b"],
+              "制造业": [r"\bmanufactur(?:ing|er)\b", r"\bfactory\b", r"\bindustrial\b", r"\bproduction\b", r"\bsemiconductor\b", r"\bchipmaker\b"],
+              "贵金属": [r"\bgold\b", r"\bsilver\b", r"\bplatinum\b", r"\bpalladium\b", r"\bprecious metal(?:s)?\b"],
+              "能源与资源": [r"\boil\b", r"\bgas\b", r"\bcopper\b", r"\blithium\b", r"\brare earth\b", r"\bmining\b", r"\benergy\b"],
+              "新兴赛道": [r"\bclean energy\b", r"\bbattery\b", r"\brobotics\b", r"\bbiotech\b", r"\bquantum\b", r"\bspace tech\b", r"\bdata cent(?:er|re)\b"]
+          }
+
+          CATEGORY_PRIORITY = {
+              "赚钱机会": 9, "投资动向": 8, "政策变化": 8, "AI工具": 8,
+              "贵金属": 8, "制造业": 7, "能源与资源": 7, "电商": 7,
+              "新兴赛道": 7, "商业趋势": 6
           }
 
           FEEDS = [
-              {"url": "https://feeds.reuters.com/reuters/businessNews", "source": "Reuters"},
-              {"url": "https://feeds.reuters.com/reuters/worldNews", "source": "Reuters"},
-              {"url": "https://feeds.reuters.com/reuters/technologyNews", "source": "Reuters"},
               {"url": "https://feeds.bbci.co.uk/news/business/rss.xml", "source": "BBC"},
+              {"url": "https://feeds.bbci.co.uk/news/technology/rss.xml", "source": "BBC"},
               {"url": "https://www.ft.com/rss/home", "source": "Financial Times"},
           ]
 
           def fetch_xml(url: str) -> bytes:
-              req = Request(
-                  url,
-                  headers={
-                      "User-Agent": "money-news-station-bot/1.0 (+https://github.com/)"
-                  },
-              )
-              with urlopen(req, timeout=20) as resp:
+              req = Request(url, headers={"User-Agent": "money-news-station-bot/2.0 (+https://github.com/Seantee9163/money-news-station)"})
+              with urlopen(req, timeout=25) as resp:
                   return resp.read()
 
           def strip_html(text: str) -> str:
               text = re.sub(r"<[^>]+>", " ", text or "")
               return re.sub(r"\s+", " ", text).strip()
 
-          def detect_category(text: str) -> str:
-              lower = (text or "").lower()
-              best = "商业趋势"
-              best_score = 0
-              for category, words in TOPIC_KEYWORDS.items():
-                  score = sum(1 for w in words if w in lower)
-                  if score > best_score:
-                      best_score = score
-                      best = category
-              return best
+          def category_scores(text: str):
+              scores = {}
+              for category, patterns in TOPIC_KEYWORDS.items():
+                  score = sum(1 for pattern in patterns if re.search(pattern, text, flags=re.I))
+                  if score:
+                      scores[category] = score
+              return scores
 
-          def cn_summary(title: str, category: str, desc: str) -> dict:
+          def detect_category(text: str):
+              scores = category_scores(text)
+              if not scores:
+                  return None, 0
+              category = max(scores, key=lambda c: (scores[c], CATEGORY_PRIORITY[c]))
+              return category, scores[category]
+
+          def cn_fields(title: str, category: str, desc: str, source: str):
               clean_desc = strip_html(desc)
-              short_desc = clean_desc[:120] + ("…" if len(clean_desc) > 120 else "")
+              short_desc = clean_desc[:150] + ("…" if len(clean_desc) > 150 else "")
               return {
-                  "summary": f"【{category}】最新国际报道显示：{title}。{short_desc or '该消息可能影响相关产业的短期预期。'}",
-                  "opportunity": f"可重点关注“{category}”相关公司、供应链与跨境市场机会，结合财报与政策窗口寻找入场节奏。",
-                  "risk": "新闻时效性强，价格波动与政策变化可能导致判断偏差；需结合多源信息交叉验证。",
-                  "why_it_matters": f"该事件属于“{category}”主线，可能影响未来1-4周的资金偏好、行业估值与商业决策。"
+                  "summary": f"【{category}】{source} 最新报道：{title}。{short_desc or '该消息正在影响相关市场预期。'}",
+                  "opportunity": f"机会观察：从“{category}”对应的供应链、服务商、区域市场与成本变化中寻找可验证的订单或投资线索。",
+                  "risk": "风险提示：新闻事件与市场价格可能快速反转；涉及投资时需核对原始来源、估值、政策与现金流。",
+                  "why_it_matters": f"为什么重要：这条消息可能改变“{category}”未来数周的需求、成本、资金流或商业决策。"
               }
 
           def parse_items(feed_bytes: bytes, default_source: str):
               root = ET.fromstring(feed_bytes)
               out = []
-
-              # RSS
               for item in root.findall(".//channel/item"):
-                  title = (item.findtext("title") or "").strip()
-                  link = (item.findtext("link") or "").strip()
-                  desc = (item.findtext("description") or "").strip()
-                  pub = (item.findtext("pubDate") or "").strip()
-                  source = (item.findtext("source") or "").strip() or default_source
-                  out.append((title, link, desc, pub, source))
-
-              # Atom (fallback)
+                  out.append(((item.findtext("title") or "").strip(), (item.findtext("link") or "").strip(), (item.findtext("description") or "").strip(), (item.findtext("pubDate") or "").strip(), (item.findtext("source") or "").strip() or default_source))
               if not out:
                   ns = {"a": "http://www.w3.org/2005/Atom"}
                   for entry in root.findall(".//a:entry", ns):
-                      title = (entry.findtext("a:title", default="", namespaces=ns) or "").strip()
                       link_el = entry.find("a:link", ns)
-                      link = (link_el.attrib.get("href", "") if link_el is not None else "").strip()
-                      desc = (entry.findtext("a:summary", default="", namespaces=ns) or "").strip()
-                      pub = (entry.findtext("a:updated", default="", namespaces=ns) or "").strip()
-                      source = default_source
-                      out.append((title, link, desc, pub, source))
+                      out.append(((entry.findtext("a:title", default="", namespaces=ns) or "").strip(), (link_el.attrib.get("href", "") if link_el is not None else "").strip(), (entry.findtext("a:summary", default="", namespaces=ns) or "").strip(), (entry.findtext("a:updated", default="", namespaces=ns) or "").strip(), default_source))
               return out
 
           def parse_date(pub_raw: str) -> datetime:
@@ -127,76 +123,95 @@ jobs:
                   except Exception:
                       return datetime.now(timezone.utc)
 
-          collected = []
-          seen = set()
+          now = datetime.now(timezone.utc)
+          collected, seen = [], set()
 
           for feed in FEEDS:
               try:
                   xml_bytes = fetch_xml(feed["url"])
               except Exception as exc:
-                  print(f"[WARN] Failed to fetch feed: {feed['url']} ({exc})")
+                  print(f"[WARN] Failed to fetch {feed['source']}: {exc}")
                   continue
 
               for title, link, desc, pub_raw, source in parse_items(xml_bytes, feed["source"]):
+                  title, link = strip_html(title), link.strip()
                   if not title or not link:
                       continue
-                  key = (title.lower(), link)
+                  key = re.sub(r"\W+", " ", title.lower()).strip()
                   if key in seen:
                       continue
                   seen.add(key)
-                  text_blob = f"{title} {desc}"
-                  if not any(k in text_blob.lower() for words in TOPIC_KEYWORDS.values() for k in words):
+
+                  text_blob = f"{title} {strip_html(desc)}"
+                  category, keyword_score = detect_category(text_blob)
+                  if not category:
                       continue
 
                   pub_dt = parse_date(pub_raw)
-                  category = detect_category(text_blob)
-                  extra = cn_summary(title, category, desc)
+                  age_hours = max(0, (now - pub_dt.astimezone(timezone.utc)).total_seconds() / 3600)
+                  freshness = max(0, 72 - age_hours) / 12
+                  relevance = keyword_score * 4 + CATEGORY_PRIORITY[category] + freshness
+                  extra = cn_fields(title, category, desc, source)
                   stable_id = int(hashlib.md5(link.encode("utf-8")).hexdigest()[:8], 16)
 
                   collected.append({
                       "id": stable_id,
-                      "title": strip_html(title),
+                      "title": title,
                       "category": category,
                       "date": pub_dt.date().isoformat(),
                       "summary": extra["summary"],
                       "opportunity": extra["opportunity"],
-                      "content": f"原始要点：{strip_html(desc) or strip_html(title)}",
+                      "content": f"原始要点：{strip_html(desc) or title}",
                       "source_name": source,
                       "source_url": link,
                       "risk": extra["risk"],
                       "why_it_matters": extra["why_it_matters"],
                       "is_featured": False,
+                      "_score": relevance,
                       "_ts": pub_dt.timestamp(),
                   })
 
-          collected.sort(key=lambda x: x["_ts"], reverse=True)
+          collected.sort(key=lambda x: (x["_score"], x["_ts"]), reverse=True)
           payload = collected[:5]
-
           if len(payload) < 3:
-              print("[ERROR] Unable to build real daily news: fewer than 3 valid items from live sources.")
-              print(f"[ERROR] Collected={len(collected)} from feeds={len(FEEDS)}. Will not write placeholder data.")
+              print(f"[ERROR] Only {len(payload)} valid business/opportunity items found. Existing site data will be preserved.")
               sys.exit(1)
 
           payload[0]["is_featured"] = True
           for item in payload:
+              item.pop("_score", None)
               item.pop("_ts", None)
 
           with open("news-data.json", "w", encoding="utf-8") as f:
               json.dump(payload, f, ensure_ascii=False, indent=2)
               f.write("\n")
 
-          print(f"news-data.json updated with {len(payload)} real items from live news feeds.")
+          print(f"news-data.json updated with {len(payload)} opportunity-focused items.")
           PY
 
-      - name: Commit and push when news-data.json changed
+      - name: Commit and push changed news data
         run: |
           if git diff --quiet -- news-data.json; then
-            echo "No changes detected in news-data.json, skipping commit and push."
-            exit 0
+            echo "No changes detected in news-data.json."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add news-data.json
+            git commit -m "chore: auto-update news-data.json"
+            git push
           fi
 
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add news-data.json
-          git commit -m "chore: auto-update news-data.json"
-          git push
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload current site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - name: Deploy current site to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+        environment:
+          name: github-pages
+          url: ${{ steps.deployment.outputs.page_url }}
