@@ -1,5 +1,47 @@
 [
   {
+    "id": 3119208254,
+    "title": "美国国债抛售给最弱的美国借款人带来压力",
+    "category": "政策变化",
+    "date": "2026-09-05",
+    "summary": "【政策变化】自去年“解放日”关税闪电战引发市场崩溃以来，风险最高的垃圾债利差已攀升至最高水平",
+    "opportunity": "机会观察：关注政策受益行业、合规服务、替代供应链与区域市场重新分配。",
+    "content": "新闻要点：自去年“解放日”关税闪电战引发市场崩溃以来，风险最高的垃圾债利差已攀升至最高水平",
+    "source_name": "Financial Times",
+    "source_url": "https://www.ft.com/content/6e096712-5abe-48c5-8e4d-c0042f947639?syn-25a6b1a6=1",
+    "risk": "风险提示：政策执行时间、范围与豁免条款可能改变，市场预期也可能快速反转。",
+    "why_it_matters": "为什么重要：政策可以直接改变成本、准入、贸易路径与企业盈利空间。",
+    "is_featured": true
+  },
+  {
+    "id": 1362334582,
+    "title": "美国袭击了三艘伊朗油轮，以回应袭击军舰的事件",
+    "category": "能源与资源",
+    "date": "2026-09-05",
+    "summary": "【能源与资源】六个月冲突暂停后，霍尔木兹海峡的军事行动继续升级",
+    "opportunity": "机会观察：关注能源、矿产、航运、精炼、回收与替代供应链中的价格和订单变化。",
+    "content": "新闻要点：六个月冲突暂停后，霍尔木兹海峡的军事行动继续升级",
+    "source_name": "Financial Times",
+    "source_url": "https://www.ft.com/content/7c7c07db-cde5-474d-9a20-8e2c2f273d4e?syn-25a6b1a6=1",
+    "risk": "风险提示：资源价格容易受地缘政治、库存、政策和产量变化影响，波动通常较大。",
+    "why_it_matters": "为什么重要：能源与原材料是制造、运输和算力的底层成本，价格变化会向多个行业传导。",
+    "is_featured": false
+  },
+  {
+    "id": 1680362219,
+    "title": "现场音乐为圣诞晚餐筹集现金",
+    "category": "投资动向",
+    "date": "2026-09-05",
+    "summary": "【投资动向】该活动的收益将帮助东南部经济困难的家庭过圣诞节。",
+    "opportunity": "机会观察：跟踪资金流向、并购、IPO与战略投资，寻找被资本重新定价的产业链。",
+    "content": "新闻要点：该活动的收益将帮助东南部经济困难的家庭过圣诞节。",
+    "source_name": "BBC",
+    "source_url": "https://www.bbc.co.uk/news/articles/crl6dw4pzexo?at_medium=RSS&at_campaign=rss",
+    "risk": "风险提示：估值上涨和账面收益不等于现金流，需区分真实经营改善与资本市场波动。",
+    "why_it_matters": "为什么重要：大额资金流向通常会改变行业竞争、扩产速度与未来估值中枢。",
+    "is_featured": false
+  },
+  {
     "id": 902527715,
     "title": "家庭警告天然气价格飙升可能给能源账单带来新的压力",
     "category": "能源与资源",
@@ -11,20 +53,6 @@
     "source_url": "https://www.bbc.co.uk/news/articles/cm274mwxy1vo?at_medium=RSS&at_campaign=rss",
     "risk": "风险提示：资源价格容易受地缘政治、库存、政策和产量变化影响，波动通常较大。",
     "why_it_matters": "为什么重要：能源与原材料是制造、运输和算力的底层成本，价格变化会向多个行业传导。",
-    "is_featured": true
-  },
-  {
-    "id": 4267659819,
-    "title": "Anthropic 即将授予摩根士丹利和高盛 2 万亿美元 IPO 的最高职位",
-    "category": "投资动向",
-    "date": "2026-09-04",
-    "summary": "【投资动向】人工智能巨头有望最早于下周公布支持其在华尔街大举亮相的文件",
-    "opportunity": "机会观察：跟踪资金流向、并购、IPO与战略投资，寻找被资本重新定价的产业链。",
-    "content": "新闻要点：人工智能巨头有望最早于下周公布支持其在华尔街大举亮相的文件",
-    "source_name": "Financial Times",
-    "source_url": "https://www.ft.com/content/3c9d0a82-643b-44ef-96a0-74a00e3c72ba?syn-25a6b1a6=1",
-    "risk": "风险提示：估值上涨和账面收益不等于现金流，需区分真实经营改善与资本市场波动。",
-    "why_it_matters": "为什么重要：大额资金流向通常会改变行业竞争、扩产速度与未来估值中枢。",
     "is_featured": false
   },
   {
@@ -37,34 +65,6 @@
     "content": "新闻要点：总统发表上述言论之际，强于预期的就业数据加剧了人们对加息的预期。",
     "source_name": "BBC",
     "source_url": "https://www.bbc.co.uk/news/articles/cy0zx2pkpx9o?at_medium=RSS&at_campaign=rss",
-    "risk": "风险提示：政策执行时间、范围与豁免条款可能改变，市场预期也可能快速反转。",
-    "why_it_matters": "为什么重要：政策可以直接改变成本、准入、贸易路径与企业盈利空间。",
-    "is_featured": false
-  },
-  {
-    "id": 3546679648,
-    "title": "不要害怕债券市场的“瘦身者”",
-    "category": "AI工具",
-    "date": "2026-09-04",
-    "summary": "【AI工具】产量上升反映了人工智能主导的更高增长，这意味着所有人都可以穿泳衣",
-    "opportunity": "机会观察：优先寻找能替代人工、提高成交率、降低运营成本并可量化ROI的AI应用。",
-    "content": "新闻要点：产量上升反映了人工智能主导的更高增长，这意味着所有人都可以穿泳衣",
-    "source_name": "Financial Times",
-    "source_url": "https://www.ft.com/content/3a232341-a470-4270-84a7-5c0e5782db3b?syn-25a6b1a6=1",
-    "risk": "风险提示：仅有技术演示、缺乏客户付费和真实工作流嵌入的产品淘汰速度会很快。",
-    "why_it_matters": "为什么重要：AI正在从概念阶段进入收入与成本验证阶段，商业价值开始分化。",
-    "is_featured": false
-  },
-  {
-    "id": 1144105896,
-    "title": "阿根廷领导人威胁要制裁石油公司并重申马岛主权主张",
-    "category": "政策变化",
-    "date": "2026-09-04",
-    "summary": "【政策变化】哈维尔·米莱重申了英国对英国海外领土的主权要求，并表示“变革之风”有利于它。",
-    "opportunity": "机会观察：关注政策受益行业、合规服务、替代供应链与区域市场重新分配。",
-    "content": "新闻要点：哈维尔·米莱重申了英国对英国海外领土的主权要求，并表示“变革之风”有利于它。",
-    "source_name": "BBC",
-    "source_url": "https://www.bbc.co.uk/news/articles/clyk18g1l8ko?at_medium=RSS&at_campaign=rss",
     "risk": "风险提示：政策执行时间、范围与豁免条款可能改变，市场预期也可能快速反转。",
     "why_it_matters": "为什么重要：政策可以直接改变成本、准入、贸易路径与企业盈利空间。",
     "is_featured": false
