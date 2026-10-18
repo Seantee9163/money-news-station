@@ -1,16 +1,16 @@
 [
   {
-    "id": 105601758,
-    "title": "中东局势再度升级，油价触及五个月高点 110 美元",
-    "category": "能源与资源",
-    "date": "2026-10-16",
-    "summary": "【能源与资源】有报道称沙特阿拉伯领导的部队拦截并摧毁了针对关键能源中心的导弹，布伦特原油价格上涨",
-    "opportunity": "机会观察：关注能源、矿产、航运、精炼、回收与替代供应链中的价格和订单变化。",
-    "content": "新闻要点：有报道称沙特阿拉伯领导的部队拦截并摧毁了针对关键能源中心的导弹，布伦特原油价格上涨",
+    "id": 3908563672,
+    "title": "人工智能清算的彩排",
+    "category": "AI工具",
+    "date": "2026-10-17",
+    "summary": "【AI工具】争论表明泡沫的真正破裂可能会对金融市场产生什么影响",
+    "opportunity": "机会观察：优先寻找能替代人工、提高成交率、降低运营成本并可量化ROI的AI应用。",
+    "content": "新闻要点：争论表明泡沫的真正破裂可能会对金融市场产生什么影响",
     "source_name": "Financial Times",
-    "source_url": "https://www.ft.com/content/8ee22d89-03eb-48dc-99a5-27555373a89c?syn-25a6b1a6=1",
-    "risk": "风险提示：资源价格容易受地缘政治、库存、政策和产量变化影响，波动通常较大。",
-    "why_it_matters": "为什么重要：能源与原材料是制造、运输和算力的底层成本，价格变化会向多个行业传导。",
+    "source_url": "https://www.ft.com/content/3f982af9-3eec-476f-9d29-39145ac485c4?syn-25a6b1a6=1",
+    "risk": "风险提示：仅有技术演示、缺乏客户付费和真实工作流嵌入的产品淘汰速度会很快。",
+    "why_it_matters": "为什么重要：AI正在从概念阶段进入收入与成本验证阶段，商业价值开始分化。",
     "is_featured": true
   },
   {
@@ -28,31 +28,17 @@
     "is_featured": false
   },
   {
-    "id": 3510859616,
-    "title": "大型科技股遭遇“解放日”以来最大单周跌幅",
-    "category": "AI工具",
-    "date": "2026-10-16",
-    "summary": "【AI工具】人工智能贸易紧张情绪导致投资者争相购买政府债务，此举阻止了长达数月的国债抛售",
-    "opportunity": "机会观察：优先寻找能替代人工、提高成交率、降低运营成本并可量化ROI的AI应用。",
-    "content": "新闻要点：人工智能贸易紧张情绪导致投资者争相购买政府债务，此举阻止了长达数月的国债抛售",
+    "id": 3685311658,
+    "title": "特朗普免除俄罗斯新法律规定的进一步制裁",
+    "category": "能源与资源",
+    "date": "2026-10-17",
+    "summary": "【能源与资源】在与莫斯科达成释放柴油的协议后，美国总统让普京暂缓实施威胁能源措施",
+    "opportunity": "机会观察：关注能源、矿产、航运、精炼、回收与替代供应链中的价格和订单变化。",
+    "content": "新闻要点：在与莫斯科达成释放柴油的协议后，美国总统让普京暂缓实施威胁能源措施",
     "source_name": "Financial Times",
-    "source_url": "https://www.ft.com/content/4c4f03f4-f878-4bd6-8128-5be7e3bb8ca1?syn-25a6b1a6=1",
-    "risk": "风险提示：仅有技术演示、缺乏客户付费和真实工作流嵌入的产品淘汰速度会很快。",
-    "why_it_matters": "为什么重要：AI正在从概念阶段进入收入与成本验证阶段，商业价值开始分化。",
-    "is_featured": false
-  },
-  {
-    "id": 1920541682,
-    "title": "Alexandr Wang，Meta 的人工智能奇才",
-    "category": "AI工具",
-    "date": "2026-10-16",
-    "summary": "【AI工具】这位 29 岁的公司超级智能实验室负责人被吹捧为马克·扎克伯格的潜在继任者",
-    "opportunity": "机会观察：优先寻找能替代人工、提高成交率、降低运营成本并可量化ROI的AI应用。",
-    "content": "新闻要点：这位 29 岁的公司超级智能实验室负责人被吹捧为马克·扎克伯格的潜在继任者",
-    "source_name": "Financial Times",
-    "source_url": "https://www.ft.com/content/7477e462-c899-4841-a5cf-c01706e23982?syn-25a6b1a6=1",
-    "risk": "风险提示：仅有技术演示、缺乏客户付费和真实工作流嵌入的产品淘汰速度会很快。",
-    "why_it_matters": "为什么重要：AI正在从概念阶段进入收入与成本验证阶段，商业价值开始分化。",
+    "source_url": "https://www.ft.com/content/836eddd7-3adc-4cbb-8527-7a0a7a277e50?syn-25a6b1a6=1",
+    "risk": "风险提示：资源价格容易受地缘政治、库存、政策和产量变化影响，波动通常较大。",
+    "why_it_matters": "为什么重要：能源与原材料是制造、运输和算力的底层成本，价格变化会向多个行业传导。",
     "is_featured": false
   },
   {
@@ -67,6 +53,20 @@
     "source_url": "https://www.bbc.co.uk/news/articles/c32l4k2xdvrzo?at_medium=RSS&at_campaign=rss",
     "risk": "风险提示：政策执行时间、范围与豁免条款可能改变，市场预期也可能快速反转。",
     "why_it_matters": "为什么重要：政策可以直接改变成本、准入、贸易路径与企业盈利空间。",
+    "is_featured": false
+  },
+  {
+    "id": 4082584381,
+    "title": "“我向一家公司支付了数千美元，却找不到工作”",
+    "category": "赚钱机会",
+    "date": "2026-10-15",
+    "summary": "【赚钱机会】阿普尔夫·帕特尔（Apurv Patel）是一些表示曾向他们承诺过工作机会但并未出现的人之一。",
+    "opportunity": "机会观察：寻找能够形成订单、服务收入或可验证现金流的公司与细分市场。",
+    "content": "新闻要点：阿普尔夫·帕特尔（Apurv Patel）是一些表示曾向他们承诺过工作机会但并未出现的人之一。",
+    "source_name": "BBC",
+    "source_url": "https://www.bbc.co.uk/news/articles/c9j3dvezpdz0o?at_medium=RSS&at_campaign=rss",
+    "risk": "风险提示：热点机会可能快速拥挤，需核对需求持续性、成本结构与真实现金流。",
+    "why_it_matters": "为什么重要：这类变化可能直接创造新的收入入口、客户需求或商业模式。",
     "is_featured": false
   }
 ]
