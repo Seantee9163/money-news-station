@@ -1,17 +1,45 @@
 [
   {
-    "id": 1191275000,
-    "title": "在人工智能担忧的推动下， 3.2万亿美元的溃败后，美国股市处于温和复苏阶段",
-    "category": "AI工具",
-    "date": "2026-11-06",
-    "summary": "【AI工具】与从严重抛售中获得的历史性复苏相比，反弹幅度微弱",
-    "opportunity": "机会观察：优先寻找能替代人工、提高成交率、降低运营成本并可量化ROI的AI应用。",
-    "content": "新闻要点：与从严重抛售中获得的历史性复苏相比，反弹幅度微弱",
+    "id": 2417345362,
+    "title": "华尔街对人工智能的全面押注是如何爆发的",
+    "category": "投资动向",
+    "date": "2026-11-07",
+    "summary": "【投资动向】美国中期选举引发了对冲基金和散户投资者从接管股票市场的交易中撤离",
+    "opportunity": "机会观察：跟踪资金流向、并购、IPO与战略投资，寻找被资本重新定价的产业链。",
+    "content": "新闻要点：美国中期选举引发了对冲基金和散户投资者从接管股票市场的交易中撤离",
     "source_name": "Financial Times",
-    "source_url": "https://www.ft.com/content/088ed252-ea9c-4b61-b2d1-37295fd0f7c2?syn-25a6b1a6=1",
+    "source_url": "https://www.ft.com/content/5a6806f0-e82e-4b34-b761-f9877e2b511c?syn-25a6b1a6=1",
+    "risk": "风险提示：估值上涨和账面收益不等于现金流，需区分真实经营改善与资本市场波动。",
+    "why_it_matters": "为什么重要：大额资金流向通常会改变行业竞争、扩产速度与未来估值中枢。",
+    "is_featured": true
+  },
+  {
+    "id": 2803093024,
+    "title": "特朗普的失败预示着美国的撤退",
+    "category": "赚钱机会",
+    "date": "2026-11-07",
+    "summary": "【赚钱机会】美国的紧缩可能会改变中东的力量平衡，并为中国带来机遇",
+    "opportunity": "机会观察：寻找能够形成订单、服务收入或可验证现金流的公司与细分市场。",
+    "content": "新闻要点：美国的紧缩可能会改变中东的力量平衡，并为中国带来机遇",
+    "source_name": "Financial Times",
+    "source_url": "https://www.ft.com/content/f80ff605-6f6e-4b5d-9fab-20276b78e9b7?syn-25a6b1a6=1",
+    "risk": "风险提示：热点机会可能快速拥挤，需核对需求持续性、成本结构与真实现金流。",
+    "why_it_matters": "为什么重要：这类变化可能直接创造新的收入入口、客户需求或商业模式。",
+    "is_featured": false
+  },
+  {
+    "id": 3249895231,
+    "title": "吉莉安·泰特：为什么美国讨厌人工智能？",
+    "category": "AI工具",
+    "date": "2026-11-07",
+    "summary": "【AI工具】选民对科技巨头的敌意帮助塑造了美国的中期选举，类似的担忧正在西方蔓延。但向东看，态度要乐观得多",
+    "opportunity": "机会观察：优先寻找能替代人工、提高成交率、降低运营成本并可量化ROI的AI应用。",
+    "content": "新闻要点：选民对科技巨头的敌意帮助塑造了美国的中期选举，类似的担忧正在西方蔓延。但向东看，态度要乐观得多",
+    "source_name": "Financial Times",
+    "source_url": "https://www.ft.com/content/af97585a-3381-42a9-838b-9a205ab81232?syn-25a6b1a6=1",
     "risk": "风险提示：仅有技术演示、缺乏客户付费和真实工作流嵌入的产品淘汰速度会很快。",
     "why_it_matters": "为什么重要：AI正在从概念阶段进入收入与成本验证阶段，商业价值开始分化。",
-    "is_featured": true
+    "is_featured": false
   },
   {
     "id": 397634460,
@@ -28,20 +56,6 @@
     "is_featured": false
   },
   {
-    "id": 102565015,
-    "title": "Anthropic继续推进IPO ，目标估值为1.5万亿美元",
-    "category": "投资动向",
-    "date": "2026-11-06",
-    "summary": "【投资动向】克劳德制造商打算在感恩节前上市，尽管科技行业遭遇了残酷的溃败",
-    "opportunity": "机会观察：跟踪资金流向、并购、IPO与战略投资，寻找被资本重新定价的产业链。",
-    "content": "新闻要点：克劳德制造商打算在感恩节前上市，尽管科技行业遭遇了残酷的溃败",
-    "source_name": "Financial Times",
-    "source_url": "https://www.ft.com/content/314e17df-e7af-4814-b208-70a0557cb452?syn-25a6b1a6=1",
-    "risk": "风险提示：估值上涨和账面收益不等于现金流，需区分真实经营改善与资本市场波动。",
-    "why_it_matters": "为什么重要：大额资金流向通常会改变行业竞争、扩产速度与未来估值中枢。",
-    "is_featured": false
-  },
-  {
     "id": 3607257859,
     "title": "为什么美国中期选举引发了人工智能股票抛售",
     "category": "政策变化",
@@ -53,20 +67,6 @@
     "source_url": "https://www.bbc.co.uk/news/articles/crlykkzwwpydo?at_medium=RSS&at_campaign=rss",
     "risk": "风险提示：政策执行时间、范围与豁免条款可能改变，市场预期也可能快速反转。",
     "why_it_matters": "为什么重要：政策可以直接改变成本、准入、贸易路径与企业盈利空间。",
-    "is_featured": false
-  },
-  {
-    "id": 2327517234,
-    "title": "尽管科技溃败，但华尔街低调的公司仍将加倍投资于Anthropic",
-    "category": "AI工具",
-    "date": "2026-11-06",
-    "summary": "【AI工具】XN通过私募投资积累了53 $的人工智能实验室股份",
-    "opportunity": "机会观察：优先寻找能替代人工、提高成交率、降低运营成本并可量化ROI的AI应用。",
-    "content": "新闻要点：XN通过私募投资积累了53 $的人工智能实验室股份",
-    "source_name": "Financial Times",
-    "source_url": "https://www.ft.com/content/538bfe46-7051-4e3d-8ff3-ad71c861a1f7?syn-25a6b1a6=1",
-    "risk": "风险提示：仅有技术演示、缺乏客户付费和真实工作流嵌入的产品淘汰速度会很快。",
-    "why_it_matters": "为什么重要：AI正在从概念阶段进入收入与成本验证阶段，商业价值开始分化。",
     "is_featured": false
   }
 ]
