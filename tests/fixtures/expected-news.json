@@ -1,0 +1,161 @@
+[
+  {
+    "id": 4285196577,
+    "title": "警惕AI诈骗：如何保护自己",
+    "category": "AI工具",
+    "date": "2026-10-18",
+    "summary": "【AI工具】英国交易标准执法人员表示，AI正通过克隆仿冒和虚假网站，让既有诈骗手法更具欺骗性。",
+    "opportunity": "围绕《警惕AI诈骗：如何保护自己》：验证动作（经营推断）：检查客户转账、供应商收款账户变更及语音指令的复核流程；用已登记号码回拨确认。本文没有证明反诈产品存在付费需求。",
+    "content": "来源摘要（非全文）：英国交易标准执法人员表示，AI正通过克隆仿冒和虚假网站，让既有诈骗手法更具欺骗性。\n证据边界：仅依据来源标题及RSS摘要，未核验全文或独立证实来源说法。",
+    "source_name": "BBC",
+    "source_url": "https://www.bbc.co.uk/news/articles/c60rl1xvjv89o?at_medium=RSS&at_campaign=rss",
+    "risk": "围绕《警惕AI诈骗：如何保护自己》：风险边界：摘要提到克隆仿冒和虚假网站；不能仅凭声音或网页外观确认交易对象，也不能据此估算本企业损失概率。",
+    "why_it_matters": "围绕《警惕AI诈骗：如何保护自己》：经营关联（推断）：若企业接受远程付款指令，这类仿冒手段值得纳入收款及付款审核；报道没有证明AI能降低本企业成本。",
+    "analysis": {
+      "version": "event-rules-v1",
+      "status": "limited_rss_evidence",
+      "rule_id": "ai_impersonation",
+      "evidence_scope": "rss_title_and_description_only",
+      "source_verification": "publisher_feed_not_independently_verified",
+      "evidence": [
+        {
+          "id": "E1",
+          "field": "original_title",
+          "quote": "Don't fall for this - how to protect yourself from AI scams",
+          "source_url": "https://www.bbc.co.uk/news/articles/c60rl1xvjv89o?at_medium=RSS&at_campaign=rss"
+        },
+        {
+          "id": "E2",
+          "field": "original_desc",
+          "quote": "Trading standards officers say AI is \"super-charging\" existing scams through clones and fake websites.",
+          "source_url": "https://www.bbc.co.uk/news/articles/c60rl1xvjv89o?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "field_evidence": {
+        "opportunity": [
+          "E2"
+        ],
+        "risk": [
+          "E2"
+        ],
+        "why_it_matters": [
+          "E2"
+        ]
+      }
+    },
+    "original_title": "Don't fall for this - how to protect yourself from AI scams",
+    "original_desc": "Trading standards officers say AI is \"super-charging\" existing scams through clones and fake websites.",
+    "published_at": "2026-10-18T23:24:59+00:00",
+    "published_raw": "Sun, 18 Oct 2026 23:24:59 GMT",
+    "retrieved_at": null,
+    "feed_url": "https://feeds.bbci.co.uk/news/business/rss.xml",
+    "translation_status": "reviewed",
+    "is_featured": false
+  },
+  {
+    "id": 2572583201,
+    "title": "微软退出英国最大AI数据中心项目",
+    "category": "AI工具",
+    "date": "2026-10-18",
+    "summary": "【AI工具】科技公司Nscale表示，仍计划在英国埃塞克斯建设该数据中心。",
+    "opportunity": "围绕《微软退出英国最大AI数据中心项目》：验证动作（经营推断）：若正采购相关云服务或参与该项目供货，向合同对方核对建设进度、交付承诺与替代方案；尚不能认定出现新的供应订单。",
+    "content": "来源摘要（非全文）：科技公司Nscale表示，仍计划在英国埃塞克斯建设该数据中心。\n证据边界：仅依据来源标题及RSS摘要，未核验全文或独立证实来源说法。",
+    "source_name": "BBC",
+    "source_url": "https://www.bbc.co.uk/news/articles/c9m26kl5y7epo?at_medium=RSS&at_campaign=rss",
+    "risk": "围绕《微软退出英国最大AI数据中心项目》：风险边界：退出项目不等于整个项目取消；需另查开发方融资、剩余合作方和履约安排，不能推断全球算力需求下降。",
+    "why_it_matters": "围绕《微软退出英国最大AI数据中心项目》：经营关联（推断）：这条消息涉及特定数据中心项目的参与方变化；只有依赖该项目交付的采购或供应计划需要据此复核，不能直接推导本地电价或AI服务价格。",
+    "analysis": {
+      "version": "event-rules-v1",
+      "status": "limited_rss_evidence",
+      "rule_id": "data_centre_withdrawal",
+      "evidence_scope": "rss_title_and_description_only",
+      "source_verification": "publisher_feed_not_independently_verified",
+      "evidence": [
+        {
+          "id": "E1",
+          "field": "original_title",
+          "quote": "Microsoft pulls out of UK's largest AI data centre",
+          "source_url": "https://www.bbc.co.uk/news/articles/c9m26kl5y7epo?at_medium=RSS&at_campaign=rss"
+        },
+        {
+          "id": "E2",
+          "field": "original_desc",
+          "quote": "Tech firm Nscale says it is still committed to building the site in Essex.",
+          "source_url": "https://www.bbc.co.uk/news/articles/c9m26kl5y7epo?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "field_evidence": {
+        "opportunity": [
+          "E1"
+        ],
+        "risk": [
+          "E1"
+        ],
+        "why_it_matters": [
+          "E1"
+        ]
+      }
+    },
+    "original_title": "Microsoft pulls out of UK's largest AI data centre",
+    "original_desc": "Tech firm Nscale says it is still committed to building the site in Essex.",
+    "published_at": "2026-10-18T16:46:42+00:00",
+    "published_raw": "Sun, 18 Oct 2026 16:46:42 GMT",
+    "retrieved_at": null,
+    "feed_url": "https://feeds.bbci.co.uk/news/business/rss.xml",
+    "translation_status": "reviewed",
+    "is_featured": false
+  },
+  {
+    "id": 191392864,
+    "title": "潮汐能能否为沿海城镇提供新的电力来源？",
+    "category": "能源与资源",
+    "date": "2026-10-18",
+    "summary": "【能源与资源】工程师David Mummery开发了一种潮汐能发电机；他表示，这项设备有望改变沿海社区居民的生活。",
+    "opportunity": "围绕《潮汐能能否为沿海城镇提供新的电力来源？》：验证动作（经营推断）：若考虑沿海供电项目，先索取发电曲线、维护记录、并网条件及单位发电成本；现有摘要不足以支持购买或投资。",
+    "content": "来源摘要（非全文）：工程师David Mummery开发了一种潮汐能发电机；他表示，这项设备有望改变沿海社区居民的生活。\n证据边界：仅依据来源标题及RSS摘要，未核验全文或独立证实来源说法。",
+    "source_name": "BBC",
+    "source_url": "https://www.bbc.co.uk/news/articles/c8y56y6xg9n9o?at_medium=RSS&at_campaign=rss",
+    "risk": "围绕《潮汐能能否为沿海城镇提供新的电力来源？》：风险边界：改善社区生活是研发者的说法；摘要未提供独立测试、商业订单或维护成本，不能把技术原型当成已验证的商业方案。",
+    "why_it_matters": "围绕《潮汐能能否为沿海城镇提供新的电力来源？》：经营关联（推断）：这是供电技术线索；对工厂是否有价值仍取决于场址、稳定性和全周期成本，不能据此认定用电费用会下降。",
+    "analysis": {
+      "version": "event-rules-v1",
+      "status": "limited_rss_evidence",
+      "rule_id": "tidal_prototype",
+      "evidence_scope": "rss_title_and_description_only",
+      "source_verification": "publisher_feed_not_independently_verified",
+      "evidence": [
+        {
+          "id": "E1",
+          "field": "original_title",
+          "quote": "Turning the tides: Could hidden sea power energise our coastal towns?",
+          "source_url": "https://www.bbc.co.uk/news/articles/c8y56y6xg9n9o?at_medium=RSS&at_campaign=rss"
+        },
+        {
+          "id": "E2",
+          "field": "original_desc",
+          "quote": "Engineer David Mummery has developed a tidal energy generator that he says can change lives for people living in coastal communities.",
+          "source_url": "https://www.bbc.co.uk/news/articles/c8y56y6xg9n9o?at_medium=RSS&at_campaign=rss"
+        }
+      ],
+      "field_evidence": {
+        "opportunity": [
+          "E2"
+        ],
+        "risk": [
+          "E2"
+        ],
+        "why_it_matters": [
+          "E2"
+        ]
+      }
+    },
+    "original_title": "Turning the tides: Could hidden sea power energise our coastal towns?",
+    "original_desc": "Engineer David Mummery has developed a tidal energy generator that he says can change lives for people living in coastal communities.",
+    "published_at": "2026-10-18T08:12:24+00:00",
+    "published_raw": "Sun, 18 Oct 2026 08:12:24 GMT",
+    "retrieved_at": null,
+    "feed_url": "https://feeds.bbci.co.uk/news/business/rss.xml",
+    "translation_status": "reviewed",
+    "is_featured": false
+  }
+]
