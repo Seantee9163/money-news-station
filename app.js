@@ -1,5 +1,28 @@
 const NEWS_DATA_PATH = 'news-data.json';
 
+// Source evidence is untrusted text, never HTML.
+function escapeHtml(value) {
+  return String(value ?? '').replace(/[&<>"']/g, (char) => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[char]));
+}
+
+function evidenceSection(article) {
+  if (!article.analysis) return '';
+  const evidence = article.analysis.evidence || [];
+  const status = article.analysis.status === 'insufficient_evidence'
+    ? '证据不足，暂不形成经营结论' : '有限证据；经营建议为规则推断';
+  const translation = article.translation_status === 'reviewed'
+    ? '标题与摘要已逐句校订' : '机器翻译，尚未人工校订；请对照原文';
+  return `<section class="info-block"><h2>依据与限制</h2>
+    <p>${status}。仅读取RSS标题与摘要，未核验新闻全文。</p>
+    <p>${translation}</p>
+    <p>来源发布时间：${escapeHtml(article.published_at || '未核实')}</p>
+    <details><summary>查看原文证据</summary>
+    ${evidence.map(e => `<p><strong>${escapeHtml(e.id)}</strong> ${escapeHtml(e.quote)}</p>`).join('')}
+    </details></section>`;
+}
+
 function formatUpdateTime(value) {
   if (!value) return '未知';
   const date = new Date(value);
@@ -390,6 +413,7 @@ function initArticle(news) {
       ${sourceLinkButton ? `<div class="info-actions">${sourceLinkButton}</div>` : ''}
     </section>
 
+    ${evidenceSection(article)}
     ${whyItMattersSection}
 
     <h2>机会研判</h2>

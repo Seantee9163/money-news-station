@@ -27,6 +27,9 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Test evidence-based news pipeline
+        run: python -m unittest discover -s tests -v
+
       - name: Build Chinese daily news-data.json
         run: python scripts/fetch_daily_news.py
 
@@ -53,7 +56,9 @@ jobs:
               if not item.get('source_url'):
                   raise SystemExit(f'Item {i} missing source_url')
 
-          print(f'Validated {len(data)} Chinese news items.')
+          from scripts.news_analysis import validate_payload
+          validate_payload(data)
+          print(f'Validated {len(data)} Chinese news items with source evidence.')
           PY
 
       - name: Commit and push changed news data
